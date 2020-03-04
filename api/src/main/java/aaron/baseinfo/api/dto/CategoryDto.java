@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 题目类别DTO
  * @author pan
  */
-public class CategoryDTO extends BasedataBaseDTO implements Serializable {
+public class CategoryDto extends BaseDataBaseDto implements Serializable {
     private static final long serialVersionUID = 1645491693425153066L;
 
     /**
@@ -36,7 +36,7 @@ public class CategoryDTO extends BasedataBaseDTO implements Serializable {
     @Max(2)
     private Byte status;
 
-    public CategoryDTO() {
+    public CategoryDto() {
     }
 
     public Long getParentId() {
@@ -81,7 +81,7 @@ public class CategoryDTO extends BasedataBaseDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "CategoryDTO{" +
+        return "CategoryDto{" +
                 "name='" + name + '\'' +
                 ", remark='" + remark + '\'' +
                 ", parentId=" + parentId +

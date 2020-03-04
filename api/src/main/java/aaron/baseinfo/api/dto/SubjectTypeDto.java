@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 题目类型DTO
  * @author pan
  */
-public class SubjectTypeDTO extends BasedataBaseDTO implements Serializable {
+public class SubjectTypeDto extends BaseDataBaseDto implements Serializable {
     private static final long serialVersionUID = 6193674149029494679L;
 
     /**
@@ -46,7 +46,7 @@ public class SubjectTypeDTO extends BasedataBaseDTO implements Serializable {
      */
     private String remark;
 
-    public SubjectTypeDTO() {
+    public SubjectTypeDto() {
     }
 
     public String getAttribute() {
@@ -99,7 +99,7 @@ public class SubjectTypeDTO extends BasedataBaseDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "SubjectTypeDTO{" +
+        return "SubjectTypeDto{" +
                 "attribute='" + attribute + '\'' +
                 ", name='" + name + '\'' +
                 ", subjectTypeId=" + subjectTypeId +

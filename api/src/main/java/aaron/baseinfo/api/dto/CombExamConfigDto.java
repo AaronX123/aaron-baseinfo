@@ -11,7 +11,7 @@ import java.util.List;
  * 组卷配置DTO
  * @author pan
  */
-public class CombExamConfigDTO extends BasedataBaseDTO implements Serializable {
+public class CombExamConfigDto extends BaseDataBaseDto implements Serializable {
     private static final long serialVersionUID = 6193674149029494679L;
 
     /**
@@ -38,7 +38,7 @@ public class CombExamConfigDTO extends BasedataBaseDTO implements Serializable {
     /**
      * 组卷配置明细DTO
      */
-    private List<CombExamConfigItemDTO> combExamConfigItemDTOList;
+    private List<CombExamConfigItemDto> combExamConfigItemDtoList;
 
     /**
      * 状态位
@@ -52,7 +52,7 @@ public class CombExamConfigDTO extends BasedataBaseDTO implements Serializable {
 
     private String company;
 
-    public CombExamConfigDTO() {
+    public CombExamConfigDto() {
     }
 
     public String getName() {
@@ -103,12 +103,12 @@ public class CombExamConfigDTO extends BasedataBaseDTO implements Serializable {
         this.deleteIds = deleteIds;
     }
 
-    public List<CombExamConfigItemDTO> getCombExamConfigItemDTOList() {
-        return combExamConfigItemDTOList;
+    public List<CombExamConfigItemDto> getCombExamConfigItemDtoList() {
+        return combExamConfigItemDtoList;
     }
 
-    public void setCombExamConfigItemDTOList(List<CombExamConfigItemDTO> combExamConfigItemDTOList) {
-        combExamConfigItemDTOList = combExamConfigItemDTOList;
+    public void setCombExamConfigItemDtoList(List<CombExamConfigItemDto> combExamConfigItemDtoList) {
+        combExamConfigItemDtoList = combExamConfigItemDtoList;
     }
 
     public String getUpdatedByName() {
@@ -129,12 +129,12 @@ public class CombExamConfigDTO extends BasedataBaseDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "CombExamConfigDTO{" +
+        return "CombExamConfigDto{" +
                 "name='" + name + '\'' +
                 ", difficulty=" + difficulty +
                 ", difficultyName='" + difficultyName + '\'' +
                 ", deleteIds=" + deleteIds +
-                ", CombExamConfigItemDTOList=" + combExamConfigItemDTOList +
+                ", CombExamConfigItemDTOList=" + combExamConfigItemDtoList +
                 ", status=" + status +
                 ", remark='" + remark + '\'' +
                 ", updatedByName='" + updatedByName + '\'' +

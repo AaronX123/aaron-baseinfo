@@ -2,7 +2,7 @@ package aaron.baseinfo.api.dto;
 
 import java.io.Serializable;
 
-public class SubjectAnswerDTO implements Serializable {
+public class SubjectAnswerDto implements Serializable {
 
     private static final long serialVersionUID = -1859606015049770782L;
 
@@ -76,12 +76,12 @@ public class SubjectAnswerDTO implements Serializable {
         this.field3 = field3;
     }
 
-    public SubjectAnswerDTO() {
+    public SubjectAnswerDto() {
     }
 
     @Override
     public String toString() {
-        return "SubjectAnswerDTO{" +
+        return "SubjectAnswerDto{" +
                 "subjectAnswerId=" + subjectAnswerId +
                 ", subjectId='" + subjectId + '\'' +
                 ", answer='" + answer + '\'' +

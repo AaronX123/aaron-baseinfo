@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 组卷配置明细DTO
  * @author pan
  */
-public class CombExamConfigItemDTO implements Serializable {
+public class CombExamConfigItemDto implements Serializable {
     private static final long serialVersionUID = 6193674149029494679L;
 
     @Id
@@ -73,7 +73,7 @@ public class CombExamConfigItemDTO implements Serializable {
      */
     private Boolean save;
 
-    public CombExamConfigItemDTO() {
+    public CombExamConfigItemDto() {
     }
 
     public Long getId() {
@@ -174,7 +174,7 @@ public class CombExamConfigItemDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "CombExamConfigItemDTO{" +
+        return "CombExamConfigItemDto{" +
                 "id=" + id +
                 ", subjectTypeId=" + subjectTypeId +
                 ", subjectType='" + subjectType + '\'' +

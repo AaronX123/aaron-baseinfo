@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Version: 1.0
  * @Maintenance Records:
  */
-public class DictionaryDTO extends BasedataBaseDTO implements Serializable {
+public class DictionaryDto extends BaseDataBaseDto implements Serializable {
 
     private static final long serialVersionUID = 6193674149029494679L;
 
@@ -41,7 +41,7 @@ public class DictionaryDTO extends BasedataBaseDTO implements Serializable {
      */
     private Long judgeId;
 
-    public DictionaryDTO() {
+    public DictionaryDto() {
     }
 
     public String getName() {
@@ -86,7 +86,7 @@ public class DictionaryDTO extends BasedataBaseDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "DictionaryDTO{" +
+        return "DictionaryDto{" +
                 "name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", value='" + value + '\'' +

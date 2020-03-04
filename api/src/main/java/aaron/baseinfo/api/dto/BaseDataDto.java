@@ -8,18 +8,18 @@ import java.util.List;
  * @version 1.0
  * @since 2019-09-27
  */
-public class BaseDataDTO {
+public class BaseDataDto {
     private List<Long> idList;
     private List<String> valueList;
 
-    public BaseDataDTO() {
+    public BaseDataDto() {
     }
 
-    public BaseDataDTO(List<Long> idList) {
+    public BaseDataDto(List<Long> idList) {
         this.idList = idList;
     }
 
-    public BaseDataDTO(List<Long> idList, List<String> valueList) {
+    public BaseDataDto(List<Long> idList, List<String> valueList) {
         this.idList = idList;
         this.valueList = valueList;
     }

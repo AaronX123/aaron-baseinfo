@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubjectPackageDTO {
-    SubjectDTO subjectDTO;
-    List<SubjectAnswerDTO> subjectAnswerDtoList;
+public class SubjectPackageDto {
+    SubjectDto subjectDTO;
+    List<SubjectAnswerDto> subjectAnswerDtoList;
 }

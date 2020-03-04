@@ -8,5 +8,7 @@ package aaron.baseinfo.api.constant;
 public class ApiConstant {
     public static final String SERVICE_NAME = "base-info";
 
+
     public static final String GET_SUBJECT_AND_ANSWER = "get/subject/and/answer";
+    public static final String GET_SUBJECT_CUSTOMIZED = "get/subject/customized";
 }

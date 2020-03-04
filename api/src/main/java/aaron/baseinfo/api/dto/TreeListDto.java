@@ -3,7 +3,7 @@ package aaron.baseinfo.api.dto;
 /**
 * 树列表DTO
 */
-public class TreeListDTO {
+public class TreeListDto {
 
     /**
      * id
@@ -59,7 +59,7 @@ public class TreeListDTO {
 
     @Override
     public String toString() {
-        return "TreeListDTO{" +
+        return "TreeListDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", parentId=" + parentId +

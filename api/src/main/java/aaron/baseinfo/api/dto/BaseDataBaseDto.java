@@ -1,6 +1,7 @@
 package aaron.baseinfo.api.dto;
 
-import aaron.common.data.common.BaseDTO;
+
+import aaron.common.data.common.BaseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BasedataBaseDTO extends BaseDTO {
+public class BaseDataBaseDto extends BaseDto {
 
     /**
      * 组织机构或者公司id

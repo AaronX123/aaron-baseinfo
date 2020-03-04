@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubjectDTO extends BasedataBaseDTO implements Serializable {
+public class SubjectDto extends BaseDataBaseDto implements Serializable {
     private static final long serialVersionUID = 6193674149029494679L;
 
     /**

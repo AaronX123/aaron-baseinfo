@@ -8,16 +8,16 @@ import java.util.List;
  * @since 2019-09-16
  */
 public class SubjectPackageList {
-    List<SubjectPackageDTO> packageDTOList;
+    List<SubjectPackageDto> packageDTOList;
 
     public SubjectPackageList() {
     }
 
-    public List<SubjectPackageDTO> getPackageDTOList() {
+    public List<SubjectPackageDto> getPackageDTOList() {
         return packageDTOList;
     }
 
-    public void setPackageDTOList(List<SubjectPackageDTO> packageDTOList) {
+    public void setPackageDTOList(List<SubjectPackageDto> packageDTOList) {
         this.packageDTOList = packageDTOList;
     }
 

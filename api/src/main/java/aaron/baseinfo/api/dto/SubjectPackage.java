@@ -17,5 +17,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubjectPackage {
-    List<SubjectPackageDTO> dtoList;
+    List<SubjectPackageDto> dtoList;
 }
