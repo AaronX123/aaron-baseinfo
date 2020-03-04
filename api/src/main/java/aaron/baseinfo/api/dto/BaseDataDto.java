@@ -1,6 +1,12 @@
 package aaron.baseinfo.api.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * 与基础数据服务交互
@@ -8,36 +14,11 @@ import java.util.List;
  * @version 1.0
  * @since 2019-09-27
  */
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BaseDataDto {
-    private List<Long> idList;
-    private List<String> valueList;
-
-    public BaseDataDto() {
-    }
-
-    public BaseDataDto(List<Long> idList) {
-        this.idList = idList;
-    }
-
-    public BaseDataDto(List<Long> idList, List<String> valueList) {
-        this.idList = idList;
-        this.valueList = valueList;
-    }
-
-    public List<Long> getIdList() {
-        return idList;
-    }
-
-    public void setIdList(List<Long> idList) {
-        this.idList = idList;
-    }
-
-    public List<String> getValueList() {
-        return valueList;
-    }
-
-    public void setValueList(List<String> valueList) {
-        this.valueList = valueList;
-    }
+    private Map<Long,String> baseInfoMap;
 }
 

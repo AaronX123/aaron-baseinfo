@@ -35,4 +35,12 @@ public interface SubjectApi {
      */
     @PostMapping(ApiConstant.GET_SUBJECT_CUSTOMIZED)
     CommonResponse<SubjectPackage> getSubjectAndAnswerCustomized(CommonRequest<List<CombExamConfigItemDto>> request);
+
+    /**
+     * 通过试题Id来获取题目和答案
+     * @param request
+     * @return
+     */
+    @PostMapping(ApiConstant.GET_SUBJECT_BY_ID)
+    CommonResponse<SubjectPackage> getSubjectById(CommonRequest<List<Long>> request);
 }
