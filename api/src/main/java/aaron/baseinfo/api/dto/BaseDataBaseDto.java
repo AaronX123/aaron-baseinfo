@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class BaseDataBaseDto extends BaseDto {
@@ -20,4 +18,21 @@ public class BaseDataBaseDto extends BaseDto {
 
     public Long oldVersion;
 
+    public Long getJudgeId() {
+        return judgeId;
+    }
+
+    public void setJudgeId(Long judgeId) {
+        this.judgeId = judgeId;
+    }
+
+    @Override
+    public Long getOldVersion() {
+        return oldVersion;
+    }
+
+    @Override
+    public void setOldVersion(Long oldVersion) {
+        this.oldVersion = oldVersion;
+    }
 }
