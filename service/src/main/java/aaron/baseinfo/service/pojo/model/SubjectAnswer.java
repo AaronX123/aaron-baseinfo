@@ -1,29 +1,21 @@
 package aaron.baseinfo.service.pojo.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 
-/**
- * 题目答案实体
- * t_subjectAnswer
- * @author pan
- */
-@Table(name = "t_subject_answer")
-public class SubjectAnswer implements Serializable {
+@Data
+@Accessors(chain = true)
+public class SubjectAnswer extends Model<SubjectAnswer> {
 
-    private static final long serialVersionUID = 4095189758749430719L;
+    private static final long serialVersionUID = -2235692655549688216L;
+    /**
+     * 雪花算法生成Id
+     */
+    private Long id;
 
-    @Id
-    @JsonSerialize(using = ToStringSerializer.class)
-    @Column(name = "id")
-    private Long subjectAnswerId;
-
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long subjectId;
 
     private String answer;
@@ -36,48 +28,17 @@ public class SubjectAnswer implements Serializable {
 
     private Object field3;
 
-    public Long getSubjectAnswerId() {
-        return subjectAnswerId;
-    }
-
-    public void setSubjectAnswerId(Long subjectAnswerId) {
-        this.subjectAnswerId = subjectAnswerId;
-    }
-
-    public Long getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public Byte getRightAnswer() {
-        return rightAnswer;
-    }
-
-    public void setRightAnswer(Byte rightAnswer) {
-        this.rightAnswer = rightAnswer;
-    }
-
     @Override
-    public String toString() {
-        return "SubjectAnswer{" +
-                "subjectAnswerId=" + subjectAnswerId +
-                ", subjectId=" + subjectId +
-                ", answer='" + answer + '\'' +
-                ", rightAnswer=" + rightAnswer +
-                ", field1=" + field1 +
-                ", field2=" + field2 +
-                ", field3=" + field3 +
-                '}';
+    protected Serializable pkVal() {
+        return id;
     }
+
+    public static final String ID = "id";
+    public static final String SUBJECT_ID = "subject_id";
+    public static final String ANSWER = "answer";
+    public static final String RIGHT_ANSWER = "right_answer";
+    public static final String FIELD1 = "field1";
+    public static final String FIELD2 = "field2";
+    public static final String FIELD3 = "field3";
+
 }
