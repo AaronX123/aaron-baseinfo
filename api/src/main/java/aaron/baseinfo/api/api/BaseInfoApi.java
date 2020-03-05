@@ -1,25 +1,43 @@
 package aaron.baseinfo.api.api;
 
 import aaron.baseinfo.api.constant.ApiConstant;
+import aaron.baseinfo.api.dto.BaseDataDto;
 import aaron.baseinfo.api.dto.CombExamConfigItemDto;
 import aaron.baseinfo.api.dto.SubjectPackage;
 import aaron.common.data.common.CommonRequest;
 import aaron.common.data.common.CommonResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
  * @author xiaoyouming
  * @version 1.0
- * @since 2020-03-03
+ * @since 2020-03-05
  */
+public interface BaseInfoApi {
+    /**
+     * 根据CategoryID获取Category值
+     * @param request
+     * @return
+     */
+    @PostMapping(ApiConstant.LIST_CATEGORY)
+    CommonResponse<BaseDataDto> listCategory(CommonRequest<BaseDataDto> request);
+    /**
+     * 获取字典值
+     * @param request
+     * @return
+     */
+    @PostMapping(ApiConstant.GET_BASE_DATAS)
+    CommonResponse<BaseDataDto> getBaseDataS(CommonRequest<BaseDataDto> request);
 
-public interface SubjectApi {
+    /**
+     * 通过Id获取对应字典值
+     * @param request
+     * @return
+     */
+    @PostMapping(ApiConstant.GET_BASE_DATA)
+    CommonResponse<String> getBaseData(CommonRequest<Long> request);
     /**
      * 根据组卷配置获取试卷
      * @param request
@@ -43,4 +61,11 @@ public interface SubjectApi {
      */
     @PostMapping(ApiConstant.GET_SUBJECT_BY_ID)
     CommonResponse<SubjectPackage> getSubjectById(CommonRequest<List<Long>> request);
+    /**
+     * 获取题目类型
+     * @param request
+     * @return
+     */
+    @PostMapping(ApiConstant.LIST_SUBJECT_TYPE)
+    CommonResponse<BaseDataDto> getSubjectType(CommonRequest<BaseDataDto> request);
 }

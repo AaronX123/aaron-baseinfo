@@ -22,6 +22,6 @@ public class CategoryController {
     @MethodEnhancer
     @GetMapping(ControllerConstant.SAVE_CATEGORY)
     public CommonResponse saveCategory(){
-        return new CommonResponse(commonState.getVersion(),CommonState.SUCCESS,CommonState.SUCCESS_MSG,"");
+        return new CommonResponse(commonState.getVersion(),commonState.SUCCESS,commonState.SUCCESS_MSG,"");
     }
 }

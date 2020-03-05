@@ -1,15 +1,14 @@
 package aaron.baseinfo.service.api.impl;
 
-import aaron.baseinfo.api.api.SubjectApi;
-import aaron.baseinfo.api.api.SubjectTypeApi;
+import aaron.baseinfo.api.api.BaseInfoApi;
 import aaron.baseinfo.api.constant.ApiConstant;
+import aaron.baseinfo.api.dto.BaseDataDto;
 import aaron.baseinfo.api.dto.CombExamConfigItemDto;
 import aaron.baseinfo.api.dto.SubjectPackage;
 import aaron.common.data.common.CommonRequest;
 import aaron.common.data.common.CommonResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -17,10 +16,45 @@ import java.util.List;
 /**
  * @author xiaoyouming
  * @version 1.0
- * @since 2020-03-04
+ * @since 2020-03-05
  */
-@RestController
-public class SubjectApiImpl implements SubjectApi {
+public class BaseInfoApiImpl implements BaseInfoApi {
+    /**
+     * 根据CategoryID获取Category值
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(ApiConstant.LIST_CATEGORY)
+    @Override
+    public CommonResponse<BaseDataDto> listCategory(@RequestBody @Valid CommonRequest<BaseDataDto> request) {
+        return null;
+    }
+
+    /**
+     * 获取字典值
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(ApiConstant.GET_BASE_DATAS)
+    @Override
+    public CommonResponse<BaseDataDto> getBaseDataS(@RequestBody @Valid CommonRequest<BaseDataDto> request) {
+        return null;
+    }
+
+    /**
+     * 通过Id获取对应字典值
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(ApiConstant.GET_BASE_DATA)
+    @Override
+    public CommonResponse<String> getBaseData(@RequestBody @Valid CommonRequest<Long> request) {
+        return null;
+    }
+
     /**
      * 根据组卷配置获取试卷
      *
@@ -54,6 +88,18 @@ public class SubjectApiImpl implements SubjectApi {
     @PostMapping(ApiConstant.GET_SUBJECT_BY_ID)
     @Override
     public CommonResponse<SubjectPackage> getSubjectById(@RequestBody @Valid CommonRequest<List<Long>> request) {
+        return null;
+    }
+
+    /**
+     * 获取题目类型
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping(ApiConstant.LIST_SUBJECT_TYPE)
+    @Override
+    public CommonResponse<BaseDataDto> getSubjectType(@RequestBody @Valid CommonRequest<BaseDataDto> request) {
         return null;
     }
 }
