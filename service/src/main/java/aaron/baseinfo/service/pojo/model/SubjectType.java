@@ -1,19 +1,49 @@
 package aaron.baseinfo.service.pojo.model;
 
-import javax.persistence.Table;
-import javax.validation.constraints.Max;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
+import java.util.Date;
 
-/**
- * 题目类型实体
- * t_subject_type
- * @author pan
- */
-@Table(name="t_subject_type")
-public class SubjectType extends BaseEntity implements Serializable {
+@Data
+@Accessors(chain = true)
+public class SubjectType extends Model<SubjectType> {
 
-    private static final long serialVersionUID = 3166105829090017535L;
-
+    private static final long serialVersionUID = 6255470412483092504L;
+    /**
+     * 雪花算法生成Id
+     */
+    private Long id;
+    /**
+     * 机构id
+     */
+    public Long orgId;
+    /**
+     * 机构下公司id
+     */
+    public Long companyId;
+    /**
+     * 通过id到数据字典中查询创建者
+     */
+    public Long createdBy;
+    /**
+     * 创建日期
+     */
+    public Date createdTime;
+    /**
+     * 通过id到数据字典中查询修改者
+     */
+    public Long updatedBy;
+    /**
+     * 修改日期
+     */
+    public Date updatedTime;
+    /**
+     * 版本，为Date.getTime()
+     */
+    protected Long version;
     /**
      * 题目类型属性列
      */
@@ -27,59 +57,29 @@ public class SubjectType extends BaseEntity implements Serializable {
     /**
      * 状态位
      */
-    @Max(2)
     private Byte status;
 
     private String remark;
 
-    public String getAttribute() {
-        return attribute;
-    }
+    private Long judgeId;
 
-    public void setAttribute(String attribute) {
-        this.attribute = attribute;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private Long oldVersion;
 
     @Override
-    public String toString() {
-        return "SubjectType{" +
-                "attribute='" + attribute + '\'' +
-                ", name='" + name + '\'' +
-                ", status=" + status +
-                ", remark='" + remark + '\'' +
-                ", judgeId=" + judgeId +
-                ", id=" + id +
-                ", orgId=" + orgId +
-                ", companyId=" + companyId +
-                ", createdBy=" + createdBy +
-                ", createdTime=" + createdTime +
-                ", updatedBy=" + updatedBy +
-                ", updatedTime=" + updatedTime +
-                ", version=" + version +
-                '}';
+    protected Serializable pkVal() {
+        return id;
     }
+
+    public static final String ID = "id";
+    public static final String NAME = "name";
+    public static final String ATTRIBUTE = "attribute";
+    public static final String REMARK = "remark";
+    public static final String STATUS = "status";
+    public static final String ORG_ID = "org_id";
+    public static final String CREATED_BY = "created_by";
+    public static final String CREATED_TIME = "created_time";
+    public static final String UPDATED_BY = "updated_by";
+    public static final String UPDATE_TIME = "update_time";
+    public static final String VERSION = "version";
+
 }

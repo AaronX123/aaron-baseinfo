@@ -1,33 +1,57 @@
 package aaron.baseinfo.service.pojo.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.Max;
 import java.io.Serializable;
+import java.util.Date;
 
-/**
- * 题目实体
- * t_subject
- * @author 
- */
-@Table(name="t_subject")
-public class Subject extends BaseEntity implements Serializable {
+@Data
+@Accessors(chain = true)
+public class Subject extends Model<Subject> {
 
-    private static final long serialVersionUID = -659676760444547952L;
-
+    private static final long serialVersionUID = -8301082409712744702L;
+    /**
+     * 雪花算法生成Id
+     */
+    private Long id;
+    /**
+     * 机构id
+     */
+    public Long orgId;
+    /**
+     * 机构下公司id
+     */
+    public Long companyId;
+    /**
+     * 通过id到数据字典中查询创建者
+     */
+    public Long createdBy;
+    /**
+     * 创建日期
+     */
+    public Date createdTime;
+    /**
+     * 通过id到数据字典中查询修改者
+     */
+    public Long updatedBy;
+    /**
+     * 修改日期
+     */
+    public Date updatedTime;
+    /**
+     * 版本，为Date.getTime()
+     */
+    protected Long version;
     /**
      * 题目类型id
      */
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long subjectTypeId;
 
     /**
      * 题目类别id
      */
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long categoryId;
 
     /**
@@ -38,13 +62,11 @@ public class Subject extends BaseEntity implements Serializable {
     /**
      * 难度
      */
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long difficulty;
 
     /**
      * 状态位
      */
-    @Max(2)
     private Byte status;
 
     /**
@@ -66,134 +88,45 @@ public class Subject extends BaseEntity implements Serializable {
      * 非表对应字段
      * 题目类型名字
      */
-    @Transient
     private String subjectTypeName;
 
     /**
      * 非表对应字段
      * 题目类别名字
      */
-    @Transient
     private String categoryName;
 
     /**
      * 非表对应字段
      * 题目难度名字
      */
-    @Transient
     private String difficultyName;
 
-    public Long getSubjectTypeId() {
-        return subjectTypeId;
-    }
+    private Long judgeId;
 
-    public void setSubjectTypeId(Long subjectTypeId) {
-        this.subjectTypeId = subjectTypeId;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Long difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
-
-    public String getField1() {
-        return field1;
-    }
-
-    public void setField1(String field1) {
-        this.field1 = field1;
-    }
-
-    public String getField2() {
-        return field2;
-    }
-
-    public void setField2(String field2) {
-        this.field2 = field2;
-    }
-
-    public String getField3() {
-        return field3;
-    }
-
-    public void setField3(String field3) {
-        this.field3 = field3;
-    }
-
-    public String getSubjectTypeName() {
-        return subjectTypeName;
-    }
-
-    public void setSubjectTypeName(String subjectTypeName) {
-        this.subjectTypeName = subjectTypeName;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public String getDifficultyName() {
-        return difficultyName;
-    }
-
-    public void setDifficultyName(String difficultyName) {
-        this.difficultyName = difficultyName;
-    }
+    private Long oldVersion;
 
     @Override
-    public String toString() {
-        return "Subject{" +
-                "subjectTypeId=" + subjectTypeId +
-                ", categoryId=" + categoryId +
-                ", name='" + name + '\'' +
-                ", difficulty=" + difficulty +
-                ", status=" + status +
-                ", field1='" + field1 + '\'' +
-                ", field2='" + field2 + '\'' +
-                ", field3='" + field3 + '\'' +
-                ", subjectTypeName='" + subjectTypeName + '\'' +
-                ", categoryName='" + categoryName + '\'' +
-                ", difficultyName='" + difficultyName + '\'' +
-                ", judgeId=" + judgeId +
-                ", id=" + id +
-                ", orgId=" + orgId +
-                ", companyId=" + companyId +
-                ", createdBy=" + createdBy +
-                ", createdTime=" + createdTime +
-                ", updatedBy=" + updatedBy +
-                ", updatedTime=" + updatedTime +
-                ", version=" + version +
-                '}';
+    protected Serializable pkVal() {
+        return id;
     }
+
+    public static final String ID = "id";
+    public static final String SUBJECT_TYPE_ID = "subject_type_id";
+    public static final String NAME = "name";
+    public static final String CATEGORY_ID = "category_id";
+    public static final String DIFFICULTY = "difficulty";
+    public static final String REMARK = "remark";
+    public static final String STATUS = "status";
+    public static final String ORG_ID = "org_id";
+    public static final String COMPANY_ID = "company_id";
+    public static final String CREATED_BY = "created_by";
+    public static final String CREATED_TIME = "created_time";
+    public static final String UPDATED_BY = "updated_by";
+    public static final String UPDATE_TIME = "update_time";
+    public static final String VERSION = "version";
+    public static final String FIELD1 = "field1";
+    public static final String FIELD2 = "field2";
+    public static final String FIELD3 = "field3";
+
 }

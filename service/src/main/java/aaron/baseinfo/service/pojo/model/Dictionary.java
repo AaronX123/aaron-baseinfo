@@ -1,20 +1,49 @@
 package aaron.baseinfo.service.pojo.model;
 
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import java.io.Serializable;
+import java.util.Date;
 
-/**
- * 数据字典实体
- * t_dictionary
- * @author 
- */
-@Table(name="t_dictionary")
-public class Dictionary extends BaseEntity implements Serializable {
+@Data
+@Accessors(chain = true)
+public class Dictionary extends Model<Dictionary> {
 
-    private static final long serialVersionUID = -9016613013240438499L;
-
+    private static final long serialVersionUID = 7136485464252246865L;
+    /**
+     * 雪花算法生成Id
+     */
+    private Long id;
+    /**
+     * 机构id
+     */
+    public Long orgId;
+    /**
+     * 机构下公司id
+     */
+    public Long companyId;
+    /**
+     * 通过id到数据字典中查询创建者
+     */
+    public Long createdBy;
+    /**
+     * 创建日期
+     */
+    public Date createdTime;
+    /**
+     * 通过id到数据字典中查询修改者
+     */
+    public Long updatedBy;
+    /**
+     * 修改日期
+     */
+    public Date updatedTime;
+    /**
+     * 版本，为Date.getTime()
+     */
+    protected Long version;
     /**
      * 字典名
      */
@@ -38,66 +67,28 @@ public class Dictionary extends BaseEntity implements Serializable {
     /**
      * 状态位
      */
-    @Max(2)
     private Byte status;
 
-    public String getName() {
-        return name;
-    }
+    private Long judgeId;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
+    private Long oldVersion;
 
     @Override
-    public String toString() {
-        return "Dictionary{" +
-                "name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", value='" + value + '\'' +
-                ", remark='" + remark + '\'' +
-                ", status=" + status +
-                ", judgeId=" + judgeId +
-                ", id=" + id +
-                ", orgId=" + orgId +
-                ", companyId=" + companyId +
-                ", createdBy=" + createdBy +
-                ", createdTime=" + createdTime +
-                ", updatedBy=" + updatedBy +
-                ", updatedTime=" + updatedTime +
-                ", version=" + version +
-                '}';
+    protected Serializable pkVal() {
+        return id;
     }
+
+    public static final String ID = "id";
+    public static final String NAME = "name";
+    public static final String CATEGORY = "category";
+    public static final String VALUE = "value";
+    public static final String REMARK = "remark";
+    public static final String STATUS = "status";
+    public static final String ORG_ID = "org_id";
+    public static final String CREATED_BY = "created_by";
+    public static final String CREATED_TIME = "created_time";
+    public static final String UPDATED_BY = "updated_by";
+    public static final String UPDATE_TIME = "update_time";
+    public static final String VERSION = "version";
+
 }

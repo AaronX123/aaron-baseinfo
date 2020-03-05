@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Data
 @Accessors(chain = true)
-public class Category extends Model<Category> implements Serializable{
+public class Category extends Model<Category>{
 
     private static final long serialVersionUID = -5495980585809940272L;
 
@@ -22,35 +22,35 @@ public class Category extends Model<Category> implements Serializable{
     /**
      * 雪花算法生成Id
      */
-    public Long id;
+    private Long id;
     /**
      * 机构id
      */
-    public Long orgId;
+    private Long orgId;
     /**
      * 机构下公司id
      */
-    public Long companyId;
+    private Long companyId;
     /**
      * 通过id到数据字典中查询创建者
      */
-    public Long createdBy;
+    private Long createdBy;
     /**
      * 创建日期
      */
-    public Date createdTime;
+    private Date createdTime;
     /**
      * 通过id到数据字典中查询修改者
      */
-    public Long updatedBy;
+    private Long updatedBy;
     /**
      * 修改日期
      */
-    public Date updatedTime;
+    private Date updatedTime;
     /**
      * 版本，为Date.getTime()
      */
-    protected Long version;
+    private Long version;
 
     /**
      * 题目类别
@@ -69,6 +69,10 @@ public class Category extends Model<Category> implements Serializable{
     private Byte status;
 
     private String remark;
+
+    private Long judgeId;
+
+    private Long oldVersion;
 
     @Override
     protected Serializable pkVal() {
