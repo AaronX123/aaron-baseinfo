@@ -108,7 +108,7 @@ public class CombExamConfigDto extends BaseDataBaseDto implements Serializable {
     }
 
     public void setCombExamConfigItemDtoList(List<CombExamConfigItemDto> combExamConfigItemDtoList) {
-        combExamConfigItemDtoList = combExamConfigItemDtoList;
+        this.combExamConfigItemDtoList = combExamConfigItemDtoList;
     }
 
     public String getUpdatedByName() {
