@@ -3,12 +3,12 @@ package aaron.baseinfo.service.biz.service.impl;
 import aaron.baseinfo.api.dto.DictionaryDto;
 import aaron.baseinfo.service.biz.dao.DictionaryDao;
 import aaron.baseinfo.service.biz.service.DictionaryService;
-import aaron.baseinfo.service.common.constant.CacheConstants;
 import aaron.baseinfo.service.common.exception.BaseInfoError;
 import aaron.baseinfo.service.common.exception.BaseInfoException;
 import aaron.baseinfo.service.pojo.model.Dictionary;
 import aaron.common.aop.annotation.FullCommonField;
 import aaron.common.aop.enums.EnumOperation;
+import aaron.common.data.common.CacheConstants;
 import aaron.common.utils.CommonUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -41,7 +41,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryDao, Dictionary
         List<String> stringList = new ArrayList<>();
         for (Long id : idList) {
             Dictionary dictionary;
-            Cache cache = cacheManager.getCache(CacheConstants.DICTIONARY_ID);
+            Cache cache = cacheManager.getCache(CacheConstants.DICTIONARY);
             Cache.ValueWrapper valueWrapper = cache.get(id);
             if (valueWrapper == null){
                 dictionary = getById(id);
@@ -66,7 +66,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryDao, Dictionary
     @Override
     public String getDictionaryValue(long id) {
         Dictionary dictionary;
-        Cache cache = cacheManager.getCache(CacheConstants.DICTIONARY_ID);
+        Cache cache = cacheManager.getCache(CacheConstants.DICTIONARY);
         Cache.ValueWrapper valueWrapper = cache.get(id);
         if (valueWrapper == null){
             dictionary = getById(id);

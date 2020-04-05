@@ -14,6 +14,9 @@ public enum BaseInfoError {
     DICTIONARY_DEL_FAIL("010006","字典值删除失败"),
     DICTIONARY_UPDATE_FAIL("010007","字典值更新失败"),
     COMB_EXAM_CONFIG_SAVE_FAIL("010008","保存组卷配置失败"),
+    COMB_EXAM_CONFIG_DELETE_FAIL("010008","删除组卷配置失败"),
+    COMB_EXAM_CONFIG_UPDATE_FAIL("010008","更新组卷配置失败"),
+
     ;
     String code;
     String msg;

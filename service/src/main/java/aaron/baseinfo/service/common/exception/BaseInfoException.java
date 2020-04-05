@@ -1,6 +1,7 @@
 package aaron.baseinfo.service.common.exception;
 
 import aaron.common.data.exception.NestedExamException;
+import aaron.common.data.exception.StarterError;
 
 /**
  * @author xiaoyouming
@@ -15,6 +16,8 @@ public class BaseInfoException extends NestedExamException {
     public BaseInfoException(BaseInfoError error){
         super(error.msg,error.code);
     }
+
+    public BaseInfoException(StarterError error) {super(error.getMsg(),error.getCode());}
 
     public BaseInfoException(BaseInfoError error, Object ... o){
         super(String.format(error.msg,o),error.msg);

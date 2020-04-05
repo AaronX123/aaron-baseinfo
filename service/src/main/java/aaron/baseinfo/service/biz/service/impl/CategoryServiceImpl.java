@@ -3,13 +3,13 @@ package aaron.baseinfo.service.biz.service.impl;
 import aaron.baseinfo.api.dto.CategoryDto;
 import aaron.baseinfo.service.biz.dao.CategoryDao;
 import aaron.baseinfo.service.biz.service.CategoryService;
-import aaron.baseinfo.service.common.constant.CacheConstants;
 import aaron.baseinfo.service.common.exception.BaseInfoError;
 import aaron.baseinfo.service.common.exception.BaseInfoException;
 import aaron.baseinfo.service.pojo.model.Category;
 import aaron.baseinfo.service.pojo.model.TreeList;
 import aaron.common.aop.annotation.FullCommonField;
 import aaron.common.aop.enums.EnumOperation;
+import aaron.common.data.common.CacheConstants;
 import aaron.common.utils.CommonUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -103,7 +103,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
     public List<String> getCategoryName(List<Long> categoryIdList) {
         List<String> res = new ArrayList<>();
         for (Long id : categoryIdList) {
-            Cache cache = cacheManager.getCache(CacheConstants.CATEGORY_ID);
+            Cache cache = cacheManager.getCache(CacheConstants.CATEGORY);
             Cache.ValueWrapper wrapper = cache.get(id);
             Category category;
             if (wrapper == null){

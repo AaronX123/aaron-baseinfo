@@ -10,6 +10,7 @@ import aaron.baseinfo.service.common.exception.BaseInfoException;
 import aaron.baseinfo.service.pojo.model.CombExamConfig;
 import aaron.baseinfo.service.pojo.model.CombExamConfigItem;
 import aaron.common.aop.annotation.FullCommonField;
+import aaron.common.aop.enums.EnumOperation;
 import aaron.common.utils.CommonUtils;
 import aaron.common.utils.SnowFlake;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,5 +53,80 @@ public class CombExamConfigServiceImpl extends ServiceImpl<CombExamConfigDao, Co
         }catch (Exception e){
             throw new BaseInfoException(BaseInfoError.COMB_EXAM_CONFIG_SAVE_FAIL);
         }
+    }
+
+    /**
+     * 删除组卷配置
+     *
+     * @param dtoList
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean deleteCombExamConfig(List<CombExamConfigDto> dtoList) {
+        List<CombExamConfig> configList = CommonUtils.convertList(dtoList,CombExamConfig.class);
+        try {
+            for (CombExamConfig config : configList) {
+                itemService.removeByConfig(config.getId());
+                baseMapper.removeWithOrg(config);
+            }
+        }catch (Exception e){
+            throw new BaseInfoException(BaseInfoError.COMB_EXAM_CONFIG_DELETE_FAIL);
+        }
+        return true;
+    }
+
+    /**
+     * 更新
+     *
+     * @param dto
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @FullCommonField(operation = EnumOperation.UPDATE)
+    @Override
+    public boolean updateCombExamConfig(CombExamConfigDto dto) {
+        CombExamConfig config = CommonUtils.copyProperties(dto,CombExamConfig.class);
+        List<CombExamConfigItem> saveCombExamConfigItemList = new ArrayList<>();
+        List<CombExamConfigItem> updateCombExamConfigItemList = new ArrayList<>();
+        for (CombExamConfigItemDto itemDto : dto.getCombExamConfigItemDtoList()) {
+            CombExamConfigItem item = CommonUtils.copyProperties(itemDto,CombExamConfigItem.class);
+            if (itemDto.getSave()){
+                item.setId(snowFlake.nextId());
+                item.setCombExamId(config.getId());
+                saveCombExamConfigItemList.add(item);
+            }else {
+                updateCombExamConfigItemList.add(item);
+            }
+        }
+
+        // 拿出删除的配置
+        List<Long> deleted = dto.getDeleteIds();
+        try {
+            // 删除配置
+            if (CommonUtils.notNull(deleted)){
+                itemService.removeByIds(deleted);
+            }
+            // 更新配置
+            if (CommonUtils.notNull(updateCombExamConfigItemList)){
+                itemService.updateBatchById(updateCombExamConfigItemList);
+            }
+            // 插入的配置
+            if (CommonUtils.notNull(saveCombExamConfigItemList)){
+                itemService.saveBatch(saveCombExamConfigItemList);
+            }
+        }catch (Exception e){
+            throw new BaseInfoException(BaseInfoError.COMB_EXAM_CONFIG_UPDATE_FAIL);
+        }
+        return true;
+    }
+
+    /**
+     * @param combExamConfig
+     * @return
+     */
+    @Override
+    public List<CombExamConfig> listById(CombExamConfig combExamConfig) {
+        return baseMapper.queryCombExamConfig(combExamConfig);
     }
 }

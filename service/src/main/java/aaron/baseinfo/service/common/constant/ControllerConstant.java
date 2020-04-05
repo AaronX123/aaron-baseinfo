@@ -26,4 +26,11 @@ public class ControllerConstant {
     public static final String QUERY_CONFIG = "/query/config";
     public static final String QUERY_CONFIG_ITEM = "/query/config/item";
 
+    public static final String SAVE_SUBJECT = "/save/subject";
+    public static final String DELETE_SUBJECT_LIST = "/delete/subject/list";
+    public static final String UPDATE_SUBJECT = "/update/subject";
+    public static final String QUERY_SUBJECT = "/query/subject";
+    public static final String QUERY_ANSWER = "/query/answer";
+
+
 }

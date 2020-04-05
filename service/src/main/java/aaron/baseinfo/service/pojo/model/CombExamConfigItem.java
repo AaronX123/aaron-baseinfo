@@ -1,9 +1,11 @@
 package aaron.baseinfo.service.pojo.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data
@@ -29,6 +31,7 @@ public class CombExamConfigItem extends Model<CombExamConfigItem> {
     /**
      * 组卷配置ID
      */
+    @TableField(value = "comb_exam_config_id")
     private Long combExamId;
 
     /**
