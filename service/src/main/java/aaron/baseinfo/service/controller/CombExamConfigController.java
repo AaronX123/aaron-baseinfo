@@ -100,7 +100,8 @@ public class CombExamConfigController {
         return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,pageMap);
     }
 
-
+    @MethodEnhancer
+    @PostMapping(ControllerConstant.QUERY_CONFIG_ITEM)
     public CommonResponse queryCombExamConfigItem(@RequestBody @Valid CommonRequest<CombExamConfigQueryVo> request){
         Page<CombExamConfigQueryVo> page = PageHelper.startPage(request.getData().getCurrentPage(),request.getData().getPageSize());
         CombExamConfigItem item = CommonUtils.copyProperties(request.getData(),CombExamConfigItem.class);

@@ -16,7 +16,10 @@ public enum BaseInfoError {
     COMB_EXAM_CONFIG_SAVE_FAIL("010008","保存组卷配置失败"),
     COMB_EXAM_CONFIG_DELETE_FAIL("010008","删除组卷配置失败"),
     COMB_EXAM_CONFIG_UPDATE_FAIL("010008","更新组卷配置失败"),
-
+    SUBJECT_UPDATE_FAIL("010009","更新题目失败"),
+    ACQUIRE_ID_FAIL("010010","抽取试题失败"),
+    GENERATE_FAIL("010011","生成失败,原因为找不到对应的题目"),
+    SUBJECT_TYPE_NOT_EXIST("010012","试题类型不存在")
     ;
     String code;
     String msg;

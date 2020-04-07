@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="aaron.baseinfo.service.biz.dao.SubjectTypeDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+
+    </sql>
+
+    <delete id="removeBatch">
+        DELETE FROM subject_type WHERE id in
+        <foreach collection="typeList" item="t" close=")" open="(" separator=",">
+            #{t.id}
+        </foreach>
+        AND version IN
+        <foreach collection="typeList" item="t" close=")" open="(" separator=",">
+            #{t.version}
+        </foreach>
+        AND org_id IN
+        <foreach collection="typeList" item="t" close=")" open="(" separator=",">
+            #{t.orgId}
+        </foreach>
+    </delete>
+</mapper>

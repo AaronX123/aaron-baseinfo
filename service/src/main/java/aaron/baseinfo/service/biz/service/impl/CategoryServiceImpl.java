@@ -101,9 +101,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
      */
     @Override
     public List<String> getCategoryName(List<Long> categoryIdList) {
+        Cache cache = cacheManager.getCache(CacheConstants.CATEGORY);
         List<String> res = new ArrayList<>();
         for (Long id : categoryIdList) {
-            Cache cache = cacheManager.getCache(CacheConstants.CATEGORY);
             Cache.ValueWrapper wrapper = cache.get(id);
             Category category;
             if (wrapper == null){

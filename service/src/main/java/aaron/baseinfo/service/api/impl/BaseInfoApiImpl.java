@@ -5,11 +5,17 @@ import aaron.baseinfo.api.constant.ApiConstant;
 import aaron.baseinfo.api.dto.BaseDataDto;
 import aaron.baseinfo.api.dto.CombExamConfigItemDto;
 import aaron.baseinfo.api.dto.SubjectPackage;
-import aaron.baseinfo.service.biz.service.CategoryService;
-import aaron.baseinfo.service.biz.service.DictionaryService;
+import aaron.baseinfo.service.biz.service.*;
+import aaron.baseinfo.service.common.constant.EnumInfoType;
+import aaron.baseinfo.service.common.exception.BaseInfoError;
+import aaron.baseinfo.service.common.exception.BaseInfoException;
+import aaron.baseinfo.service.pojo.model.CombExamConfig;
+import aaron.baseinfo.service.pojo.model.CombExamConfigItem;
 import aaron.common.data.common.CommonRequest;
 import aaron.common.data.common.CommonResponse;
 import aaron.common.data.common.CommonState;
+import aaron.common.data.exception.StarterError;
+import aaron.common.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +41,18 @@ public class BaseInfoApiImpl implements BaseInfoApi {
     @Autowired
     DictionaryService dictionaryService;
 
+    @Autowired
+    CombExamConfigService combExamConfigService;
+
+    @Autowired
+    CombExamConfigItemService combExamConfigItemService;
+
+    @Autowired
+    SubjectService subjectService;
+
+    @Autowired
+    SubjectTypeService subjectTypeService;
+
     /**
      * 根据CategoryID获取Category值
      *
@@ -44,12 +62,7 @@ public class BaseInfoApiImpl implements BaseInfoApi {
     @PostMapping(ApiConstant.LIST_CATEGORY)
     @Override
     public CommonResponse<BaseDataDto> listCategory(@RequestBody @Valid CommonRequest<BaseDataDto> request) {
-        BaseDataDto dataDto = request.getData();
-        List<Long> idList = new ArrayList<>(dataDto.getBaseInfoMap().keySet());
-        List<String> values = categoryService.getCategoryName(idList);
-        Map<Long,String> map = resolve(idList,values,dataDto.getBaseInfoMap());
-        dataDto.setBaseInfoMap(map);
-        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,dataDto);
+        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,getBaseInfo(request.getData(),EnumInfoType.CATEGORY));
     }
 
     private Map<Long,String> resolve(List<Long> idList, List<String> valueList, Map<Long,String> map){
@@ -67,12 +80,7 @@ public class BaseInfoApiImpl implements BaseInfoApi {
     @PostMapping(ApiConstant.GET_BASE_DATAS)
     @Override
     public CommonResponse<BaseDataDto> getBaseDataS(@RequestBody @Valid CommonRequest<BaseDataDto> request) {
-        BaseDataDto dataDto = request.getData();
-        List<Long> idList = new ArrayList<>(dataDto.getBaseInfoMap().keySet());
-        List<String> values = dictionaryService.getDictionary(idList);
-        Map<Long,String> map = resolve(idList,values,dataDto.getBaseInfoMap());
-        dataDto.setBaseInfoMap(map);
-        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,dataDto);
+        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,getBaseInfo(request.getData(),EnumInfoType.DICTIONARY));
     }
 
     /**
@@ -96,7 +104,12 @@ public class BaseInfoApiImpl implements BaseInfoApi {
     @PostMapping(ApiConstant.GET_SUBJECT_AND_ANSWER)
     @Override
     public CommonResponse<SubjectPackage> getSubjectAndAnswer(@RequestBody @Valid CommonRequest<Long> request) {
-        return null;
+        long combExamConfigId = request.getData();
+        CombExamConfigItem config = new CombExamConfigItem();
+        config.setCombExamId(combExamConfigId);
+        List<CombExamConfigItem> itemList = combExamConfigItemService.listByCombExamId(config);
+        SubjectPackage subjectPackage = subjectService.getSubject(itemList);
+        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,subjectPackage);
     }
 
     /**
@@ -108,7 +121,9 @@ public class BaseInfoApiImpl implements BaseInfoApi {
     @PostMapping(ApiConstant.GET_SUBJECT_CUSTOMIZED)
     @Override
     public CommonResponse<SubjectPackage> getSubjectAndAnswerCustomized(@RequestBody @Valid CommonRequest<List<CombExamConfigItemDto>> request) {
-        return null;
+        List<CombExamConfigItem> combExamConfigItemList = CommonUtils.convertList(request.getData(),CombExamConfigItem.class);
+        SubjectPackage subjectPackage = subjectService.getSubject(combExamConfigItemList);
+        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,subjectPackage);
     }
 
     /**
@@ -120,7 +135,9 @@ public class BaseInfoApiImpl implements BaseInfoApi {
     @PostMapping(ApiConstant.GET_SUBJECT_BY_ID)
     @Override
     public CommonResponse<SubjectPackage> getSubjectById(@RequestBody @Valid CommonRequest<List<Long>> request) {
-        return null;
+        List<Long> subjectIdList = request.getData();
+        SubjectPackage subjectPackage = subjectService.getSubjectById(subjectIdList);
+        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,subjectPackage);
     }
 
     /**
@@ -132,6 +149,27 @@ public class BaseInfoApiImpl implements BaseInfoApi {
     @PostMapping(ApiConstant.LIST_SUBJECT_TYPE)
     @Override
     public CommonResponse<BaseDataDto> getSubjectType(@RequestBody @Valid CommonRequest<BaseDataDto> request) {
-        return null;
+        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,getBaseInfo(request.getData(),EnumInfoType.SUBJECT_TYPE));
+    }
+
+    private BaseDataDto getBaseInfo(BaseDataDto baseDataDto, EnumInfoType type){
+        List<Long> idList = new ArrayList<>(baseDataDto.getBaseInfoMap().keySet());
+        List<String> values;
+        switch (type){
+            case CATEGORY:
+                values = categoryService.getCategoryName(idList);
+                break;
+            case DICTIONARY:
+                values = dictionaryService.getDictionary(idList);
+                break;
+            case SUBJECT_TYPE:
+                values = subjectTypeService.getTypeName(idList);
+                break;
+            default:
+                throw new BaseInfoException(StarterError.SYSTEM_PARAMETER_VALUE_INVALID);
+        }
+        Map<Long,String> map = resolve(idList,values,baseDataDto.getBaseInfoMap());
+        baseDataDto.setBaseInfoMap(map);
+        return baseDataDto;
     }
 }

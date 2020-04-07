@@ -20,4 +20,5 @@ public interface CombExamConfigItemService extends IService<CombExamConfigItem> 
      * @return
      */
     List<CombExamConfigItem> listByCombExamId(CombExamConfigItem item);
+
 }

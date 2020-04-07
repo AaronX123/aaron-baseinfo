@@ -21,7 +21,7 @@ public class ControllerConstant {
     public static final String QUERY_DICTIONARY_VALUE = "/query/dictionary/value";
 
     public static final String SAVE_COMB_EXAM_CONFIG = "/save/comb/exam/config";
-    public static final String UPDATE_CEC = "/save/comb/exam/config";
+    public static final String UPDATE_CEC = "/update/comb/exam/config";
     public static final String DELETE_CEC = "/delete/comb/exam/config";
     public static final String QUERY_CONFIG = "/query/config";
     public static final String QUERY_CONFIG_ITEM = "/query/config/item";
@@ -31,6 +31,12 @@ public class ControllerConstant {
     public static final String UPDATE_SUBJECT = "/update/subject";
     public static final String QUERY_SUBJECT = "/query/subject";
     public static final String QUERY_ANSWER = "/query/answer";
+
+    public static final String SAVE_SUBJECT_TYPE = "/save/subject/type";
+    public static final String DELETE_SUBJECT_TYPE = "/delete/subject/type";
+    public static final String UPDATE_SUBJECT_TYPE = "/update/subject/type";
+    public static final String QUERY_SUBJECT_TYPE = "/query/subject/type";
+    public static final String QUERY_SUBJECT_TYPE_UPDATE_FORM = "/query/subject/type/update/form";
 
 
 }

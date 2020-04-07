@@ -38,10 +38,10 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryDao, Dictionary
      */
     @Override
     public List<String> getDictionary(List<Long> idList) {
+        Cache cache = cacheManager.getCache(CacheConstants.DICTIONARY);
         List<String> stringList = new ArrayList<>();
         for (Long id : idList) {
             Dictionary dictionary;
-            Cache cache = cacheManager.getCache(CacheConstants.DICTIONARY);
             Cache.ValueWrapper valueWrapper = cache.get(id);
             if (valueWrapper == null){
                 dictionary = getById(id);

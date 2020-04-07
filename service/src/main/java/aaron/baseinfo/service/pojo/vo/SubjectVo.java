@@ -1,5 +1,6 @@
 package aaron.baseinfo.service.pojo.vo;
 
+import aaron.baseinfo.service.pojo.model.SubjectAnswer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
@@ -111,12 +112,12 @@ public class SubjectVo extends BaseItemVo implements Serializable {
         this.categoryName = categoryName;
     }
 
-    public List<SubjectAnswerVO> getSubjectAnswerVOList() {
-        return subjectAnswerVOList;
+    public List<SubjectAnswerVo> getSubjectAnswerVOList() {
+        return subjectAnswerVoList;
     }
 
-    public void setSubjectAnswerVOList(List<SubjectAnswerVO> subjectAnswerVOList) {
-        this.subjectAnswerVOList = subjectAnswerVOList;
+    public void setSubjectAnswerVOList(List<SubjectAnswerVo> subjectAnswerVOList) {
+        this.subjectAnswerVoList = subjectAnswerVOList;
     }
 
     @Override
@@ -128,7 +129,7 @@ public class SubjectVo extends BaseItemVo implements Serializable {
                 ", difficulty=" + difficulty +
                 ", categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
-                ", subjectAnswerVOList=" + subjectAnswerVOList +
+                ", subjectAnswerVOList=" + subjectAnswerVoList +
                 ", id=" + id +
                 ", status=" + status +
                 ", version=" + version +
