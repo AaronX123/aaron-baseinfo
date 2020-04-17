@@ -19,10 +19,12 @@ spring:
 
 server:
   port: 8082
+  servlet:
+    context-path: /baseinfo
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.1.102:8761/eureka
+      defaultZone: http://118.31.7.229:8761/eureka
 
   instance:
     prefer-ip-address: true
