@@ -52,7 +52,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryDao, Dictionary
             if (dictionary == null){
                 throw new BaseInfoException(BaseInfoError.DICTIONARY_NOT_EXIST);
             }
-            stringList.add(dictionary.getName());
+            stringList.add(dictionary.getValue());
         }
         return stringList;
     }
@@ -77,7 +77,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryDao, Dictionary
         if (dictionary == null){
             throw new BaseInfoException(BaseInfoError.DICTIONARY_NOT_EXIST);
         }
-        return dictionary.getName();
+        return dictionary.getValue();
     }
 
     /**

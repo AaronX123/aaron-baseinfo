@@ -20,6 +20,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -29,6 +30,7 @@ import java.util.Map;
 /**
  * @author xym
  */
+@RequestMapping(ControllerConstant.SUBJECT_TYPE)
 @RestController
 public class SubjectTypeController {
     @Autowired
@@ -39,7 +41,7 @@ public class SubjectTypeController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.SAVE_SUBJECT_TYPE)
-    public CommonResponse<Boolean> saveSubjectType(@RequestBody @Valid CommonRequest<SubjectTypeVo> request){
+    public CommonResponse<Boolean> saveSubjectType(@RequestBody CommonRequest<SubjectTypeVo> request){
         SubjectTypeDto subjectTypeDto = CommonUtils.copyProperties(request.getData(),SubjectTypeDto.class);
         subjectTypeService.save(subjectTypeDto);
         return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,true);
@@ -47,7 +49,7 @@ public class SubjectTypeController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.DELETE_SUBJECT_TYPE)
-    public CommonResponse<Boolean> deleteSubjectType(@RequestBody @Valid CommonRequest<List> request){
+    public CommonResponse<Boolean> deleteSubjectType(@RequestBody CommonRequest<List> request){
         List<SubjectType> subjectTypeList = CommonUtils.convertList(request.getData(),SubjectType.class);
         UserPermission userPermission = TokenUtils.getUser();
         for (SubjectType type : subjectTypeList) {
@@ -59,7 +61,7 @@ public class SubjectTypeController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.UPDATE_SUBJECT_TYPE)
-    public CommonResponse<Boolean> updateSubjectType(@RequestBody @Valid CommonRequest<SubjectTypeVo> request){
+    public CommonResponse<Boolean> updateSubjectType(@RequestBody CommonRequest<SubjectTypeVo> request){
         SubjectTypeDto subjectTypeDto = CommonUtils.copyProperties(request.getData(),SubjectTypeDto.class);
         subjectTypeDto.setJudgeId(TokenUtils.getUser().getOrgId());
         subjectTypeDto.setOldVersion(subjectTypeDto.getVersion());
@@ -69,7 +71,7 @@ public class SubjectTypeController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.QUERY_SUBJECT_TYPE)
-    public CommonResponse<Map> querySubjectType(@RequestBody @Valid CommonRequest<SubjectTypeQueryVo> request){
+    public CommonResponse<Map> querySubjectType(@RequestBody CommonRequest<SubjectTypeQueryVo> request){
         Page<SubjectTypeQueryVo> page = PageHelper.startPage(request.getData().getCurrentPage(),request.getData().getPageSize());
         SubjectType subjectType = CommonUtils.copyProperties(request.getData(),SubjectType.class);
         List<SubjectType> subjectTypeList = subjectTypeService.list(subjectType);
@@ -80,7 +82,7 @@ public class SubjectTypeController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.QUERY_SUBJECT_TYPE_UPDATE_FORM)
-    public CommonResponse<List> querySubjectTypeUpdateForm(@RequestBody @Valid CommonRequest<SubjectTypeQueryVo> request){
+    public CommonResponse<List> querySubjectTypeUpdateForm(@RequestBody CommonRequest<SubjectTypeQueryVo> request){
         SubjectType subjectType = CommonUtils.copyProperties(request.getData(),SubjectType.class);
         subjectType.setOrgId(TokenUtils.getUser().getOrgId());
         List<SubjectType> subjectTypeList = subjectTypeService.querySubjectTypeUpdateForm(subjectType);

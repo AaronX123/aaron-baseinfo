@@ -24,6 +24,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -33,6 +34,7 @@ import java.util.Map;
 /**
  * @author xym
  */
+@RequestMapping(ControllerConstant.COMB_EXAM_CONFIG)
 @RestController
 public class CombExamConfigController {
     @Autowired
@@ -49,7 +51,7 @@ public class CombExamConfigController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.SAVE_COMB_EXAM_CONFIG)
-    public CommonResponse<Boolean> save(@RequestBody @Valid CommonRequest<CombExamConfigVo> request){
+    public CommonResponse<Boolean> save(@RequestBody CommonRequest<CombExamConfigVo> request){
         CombExamConfigDto dto = CommonUtils.copyProperties(request.getData(),CombExamConfigDto.class);
         dto.setCombExamConfigItemDtoList(CommonUtils.convertList(request.getData().getCombExamConfigItemVOs(),CombExamConfigItemDto.class));
         combExamConfigService.saveCombExamConfigItem(dto);
@@ -59,7 +61,7 @@ public class CombExamConfigController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.DELETE_CEC)
-    public CommonResponse<Boolean> delete(@RequestBody @Valid CommonRequest<List<CombExamConfigVo>> request){
+    public CommonResponse<Boolean> delete(@RequestBody CommonRequest<List<CombExamConfigVo>> request){
         List<CombExamConfigVo> voList = request.getData();
         List<CombExamConfigDto> dtoList = CommonUtils.convertList(voList,CombExamConfigDto.class);
         for (CombExamConfigDto dto : dtoList) {
@@ -72,7 +74,7 @@ public class CombExamConfigController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.UPDATE_CEC)
-    public CommonResponse<Boolean> update(@RequestBody @Valid CommonRequest<CombExamConfigVo> request){
+    public CommonResponse<Boolean> update(@RequestBody CommonRequest<CombExamConfigVo> request){
         CombExamConfigDto dto = CommonUtils.copyProperties(request.getData(),CombExamConfigDto.class);
         dto.setOldVersion(dto.getVersion());
         dto.setJudgeId(CommonUtils.judgeCompanyAndOrg());
@@ -84,7 +86,7 @@ public class CombExamConfigController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.QUERY_CONFIG)
-    public CommonResponse<Map> queryCombExamConfig(@RequestBody @Valid CommonRequest<CombExamConfigQueryVo> request){
+    public CommonResponse<Map> queryCombExamConfig(@RequestBody CommonRequest<CombExamConfigQueryVo> request){
         Page<CombExamConfigQueryVo> page = PageHelper.startPage(request.getData().getCurrentPage(),request.getData().getPageSize());
         List<CombExamConfig> configList = combExamConfigService.listById(CommonUtils.copyProperties(request.getData(),CombExamConfig.class));
         List<CombExamConfigListVo> voList = CommonUtils.convertList(configList,CombExamConfigListVo.class);
@@ -102,7 +104,7 @@ public class CombExamConfigController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.QUERY_CONFIG_ITEM)
-    public CommonResponse queryCombExamConfigItem(@RequestBody @Valid CommonRequest<CombExamConfigQueryVo> request){
+    public CommonResponse queryCombExamConfigItem(@RequestBody CommonRequest<CombExamConfigQueryVo> request){
         Page<CombExamConfigQueryVo> page = PageHelper.startPage(request.getData().getCurrentPage(),request.getData().getPageSize());
         CombExamConfigItem item = CommonUtils.copyProperties(request.getData(),CombExamConfigItem.class);
         List<CombExamConfigItem> combExamConfigItemList = combExamConfigItemService.listByCombExamId(item);

@@ -26,6 +26,7 @@ public class CombExamConfigItem extends Model<CombExamConfigItem> {
     /**
      * 题型名
      */
+    @TableField(exist = false)
     private String subjectType;
 
     /**
@@ -42,6 +43,7 @@ public class CombExamConfigItem extends Model<CombExamConfigItem> {
     /**
      * 题目类别名字
      */
+    @TableField(exist = false)
     private String category;
 
     /**
@@ -57,6 +59,7 @@ public class CombExamConfigItem extends Model<CombExamConfigItem> {
     /**
      * 题目难度名
      */
+    @TableField(exist = false)
     private String difficultyName;
 
     /**

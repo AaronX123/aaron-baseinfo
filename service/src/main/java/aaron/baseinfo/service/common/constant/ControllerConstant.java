@@ -6,37 +6,42 @@ package aaron.baseinfo.service.common.constant;
  * @since 2020-03-04
  */
 public class ControllerConstant {
+    public static final String CATEGORY = "/category";
+    public static final String COMB_EXAM_CONFIG = "/combExamConfig";
+    public static final String DICTIONARY = "/dictionary";
+    public static final String SUBJECT = "/subject";
+    public static final String SUBJECT_TYPE = "/subjectType";
 
-    public static final String SAVE_CATEGORY = "/save/category";
-    public static final String DELETE_CATEGORY = "/delete/category";
-    public static final String UPDATE_CATEGORY = "/update/category";
-    public static final String QUERY_CATEGORY = "/query/category";
-    public static final String QUERY_CATEGORY_INFO = "/query/category/info";
-    public static final String QUERY_CATEGORY_TREE = "/query/category/tree";
+    public static final String SAVE_CATEGORY = "/saveCategory";
+    public static final String DELETE_CATEGORY = "/deleteCategory";
+    public static final String UPDATE_CATEGORY = "/updateCategory";
+    public static final String QUERY_CATEGORY = "/queryCategory";
+    public static final String QUERY_CATEGORY_INFO = "/queryCategoryInfo";
+    public static final String QUERY_CATEGORY_TREE = "/getCategoryTree";
 
-    public static final String SAVE_DICTIONARY = "/save/dictionary";
-    public static final String DELETE_DICTIONARY = "/delete/dictionary";
-    public static final String UPDATE_DICTIONARY = "/update/dictionary";
-    public static final String QUERY_DICTIONARY = "/query/dictionary";
-    public static final String QUERY_DICTIONARY_VALUE = "/query/dictionary/value";
+    public static final String SAVE_DICTIONARY = "/saveDictionary";
+    public static final String DELETE_DICTIONARY = "/deleteDictionary";
+    public static final String UPDATE_DICTIONARY = "/updateDictionary";
+    public static final String QUERY_DICTIONARY = "/queryDictionary";
+    public static final String QUERY_DICTIONARY_VALUE = "/queryDictionaryValue";
 
-    public static final String SAVE_COMB_EXAM_CONFIG = "/save/comb/exam/config";
-    public static final String UPDATE_CEC = "/update/comb/exam/config";
-    public static final String DELETE_CEC = "/delete/comb/exam/config";
-    public static final String QUERY_CONFIG = "/query/config";
-    public static final String QUERY_CONFIG_ITEM = "/query/config/item";
+    public static final String SAVE_COMB_EXAM_CONFIG = "/saveCombExamConfig";
+    public static final String UPDATE_CEC = "/updateCombExamConfig";
+    public static final String DELETE_CEC = "/deleteCombExamConfig";
+    public static final String QUERY_CONFIG = "/queryCombExamConfig";
+    public static final String QUERY_CONFIG_ITEM = "/queryCombExamConfigItem";
 
-    public static final String SAVE_SUBJECT = "/save/subject";
-    public static final String DELETE_SUBJECT_LIST = "/delete/subject/list";
-    public static final String UPDATE_SUBJECT = "/update/subject";
-    public static final String QUERY_SUBJECT = "/query/subject";
-    public static final String QUERY_ANSWER = "/query/answer";
+    public static final String SAVE_SUBJECT = "/saveSubject";
+    public static final String DELETE_SUBJECT_LIST = "/deleteSubjectList";
+    public static final String UPDATE_SUBJECT = "/updateSubject";
+    public static final String QUERY_SUBJECT = "/querySubject";
+    public static final String QUERY_ANSWER = "/queryAnswer";
 
-    public static final String SAVE_SUBJECT_TYPE = "/save/subject/type";
-    public static final String DELETE_SUBJECT_TYPE = "/delete/subject/type";
-    public static final String UPDATE_SUBJECT_TYPE = "/update/subject/type";
-    public static final String QUERY_SUBJECT_TYPE = "/query/subject/type";
-    public static final String QUERY_SUBJECT_TYPE_UPDATE_FORM = "/query/subject/type/update/form";
+    public static final String SAVE_SUBJECT_TYPE = "/saveSubjectType";
+    public static final String DELETE_SUBJECT_TYPE = "/deleteSubjectType";
+    public static final String UPDATE_SUBJECT_TYPE = "/updateSubjectType";
+    public static final String QUERY_SUBJECT_TYPE = "/querySubjectType";
+    public static final String QUERY_SUBJECT_TYPE_UPDATE_FORM = "/querySubjectTypeUpdateForm";
 
 
 }

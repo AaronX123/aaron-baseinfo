@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface SubjectDao extends BaseMapper<Subject> {
     @Select("<script>" +
-            "SELECT a.*,t.name AS subjectTypeName,c.name AS categoryName,d.value AS difficultyName FROM t_subject a,t_subject_type t,t_category c,t_dictionary d WHERE "  +
+            "SELECT a.*,t.name AS subjectTypeName,c.name AS categoryName,d.value AS difficultyName FROM subject a,subject_type t,category c,dictionary d WHERE "  +
             "a.subject_type_id = t.id AND a.category_id = c.id AND a.difficulty = d.id " +
             "<if test=\"name!=null and name!=''\">" +
             "AND a.name LIKE CONCAT('%',#{name},'%') " +
@@ -29,10 +29,10 @@ public interface SubjectDao extends BaseMapper<Subject> {
             "</script>")
     List<Subject> querySubject(Subject subject);
 
-    @Select("SELECT a.id FROM t_subject a " +
-            "Left JOIN t_subject_type t ON a.subject_type_id = t.id " +
-            "LEFT JOIN t_category c ON a.category_id = c.id " +
-            "LEFT JOIN t_dictionary d ON a.difficulty = d.id WHERE a.subject_type_id = #{subjectTypeId} AND a.category_id = #{categoryId} AND a.difficulty = #{difficulty}")
+    @Select("SELECT a.id FROM subject a " +
+            "Left JOIN subject_type t ON a.subject_type_id = t.id " +
+            "LEFT JOIN category c ON a.category_id = c.id " +
+            "LEFT JOIN dictionary d ON a.difficulty = d.id WHERE a.subject_type_id = #{subjectTypeId} AND a.category_id = #{categoryId} AND a.difficulty = #{difficulty}")
     List<Long> querySubjectIdList(Subject subject);
 
     /**
@@ -42,7 +42,7 @@ public interface SubjectDao extends BaseMapper<Subject> {
      */
     @Select({"<script>" +
             "SELECT id,org_id,company_id,created_by,created_time,updated_by,updated_time,version,subject_type_id,category_id,name," +
-            "difficulty,status FROM t_subject WHERE id IN "+
+            "difficulty,status FROM subject WHERE id IN "+
             "<foreach item = 'id' index = 'index' collection = 'idList' open='(' separator=',' close=')'>" +
             "#{id} </foreach> </script>" })
     List<Subject> querySubjectByPrimaryKeyList(@Param("idList") List<Long> idList);

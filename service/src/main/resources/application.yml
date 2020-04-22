@@ -6,17 +6,26 @@ aaron:
 spring:
   application:
     name: baseinfo
-  redis:
-    database: 8
-    host: 118.31.7.229
-    port: 6379
-    password: xym123
+#  redis:
+#    database: 8
+#    host: 118.31.7.229
+#    port: 6379
+#    password: xym123
+#  datasource:
+#    url: jdbc:mysql://118.31.7.229:3307/baseinfo?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true&useAffectedRows=true
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: xym123
   datasource:
-    url: jdbc:mysql://118.31.7.229:3307/baseinfo?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true&useAffectedRows=true
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.100:3306/baseinfo?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: xym123
-
+    driverClassName: com.mysql.cj.jdbc.Driver
+  redis:
+    database: 8
+    host: 192.168.1.100
+    port: 6379
+    password:
 server:
   port: 8082
   servlet:
@@ -24,11 +33,16 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://118.31.7.229:8761/eureka
+      #defaultZone: http://118.31.7.229:8761/eureka
+      defaultZone: http://192.168.1.100:8761/eureka/
+    registry-fetch-interval-seconds: 5
 
   instance:
-    prefer-ip-address: true
-    # 这个是本服务的ip和端口
-    ip-address: 192.168.1.102
-    non-secure-port: 8082
+    prefer-ip-address: false
+    lease-expiration-duration-in-seconds: 15
+    lease-renewal-interval-in-seconds: 5
+#    prefer-ip-address: true
+#    # 这个是本服务的ip和端口
+#    ip-address: 192.168.1.102
+#    non-secure-port: 8082
 

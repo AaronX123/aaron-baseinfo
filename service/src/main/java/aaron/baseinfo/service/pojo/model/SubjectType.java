@@ -1,5 +1,6 @@
 package aaron.baseinfo.service.pojo.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -23,6 +24,7 @@ public class SubjectType extends Model<SubjectType> {
     /**
      * 机构下公司id
      */
+    @TableField(exist = false)
     public Long companyId;
     /**
      * 通过id到数据字典中查询创建者
@@ -61,8 +63,10 @@ public class SubjectType extends Model<SubjectType> {
 
     private String remark;
 
+    @TableField(exist = false)
     private Long judgeId;
 
+    @TableField(exist = false)
     private Long oldVersion;
 
     @Override
@@ -79,7 +83,7 @@ public class SubjectType extends Model<SubjectType> {
     public static final String CREATED_BY = "created_by";
     public static final String CREATED_TIME = "created_time";
     public static final String UPDATED_BY = "updated_by";
-    public static final String UPDATE_TIME = "update_time";
+    public static final String UPDATE_TIME = "updated_time";
     public static final String VERSION = "version";
 
 }

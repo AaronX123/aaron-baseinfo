@@ -1,5 +1,6 @@
 package aaron.baseinfo.service.pojo.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -88,22 +89,27 @@ public class Subject extends Model<Subject> {
      * 非表对应字段
      * 题目类型名字
      */
+    @TableField(exist = false)
     private String subjectTypeName;
 
     /**
      * 非表对应字段
      * 题目类别名字
      */
+    @TableField(exist = false)
     private String categoryName;
 
     /**
      * 非表对应字段
      * 题目难度名字
      */
+    @TableField(exist = false)
     private String difficultyName;
 
+    @TableField(exist = false)
     private Long judgeId;
 
+    @TableField(exist = false)
     private Long oldVersion;
 
     @Override
@@ -123,7 +129,7 @@ public class Subject extends Model<Subject> {
     public static final String CREATED_BY = "created_by";
     public static final String CREATED_TIME = "created_time";
     public static final String UPDATED_BY = "updated_by";
-    public static final String UPDATE_TIME = "update_time";
+    public static final String UPDATE_TIME = "updated_time";
     public static final String VERSION = "version";
     public static final String FIELD1 = "field1";
     public static final String FIELD2 = "field2";

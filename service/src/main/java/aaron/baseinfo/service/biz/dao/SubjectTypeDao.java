@@ -13,13 +13,13 @@ import java.util.List;
 public interface SubjectTypeDao extends BaseMapper<SubjectType> {
     boolean removeBatch(@Param(value = "typeList") List<SubjectType> typeList);
 
-    @Update("UPDATE t_subject_type SET name = #{name}, attribute = #{attribute}, remark = #{remark}, " +
+    @Update("UPDATE subject_type SET name = #{name}, attribute = #{attribute}, remark = #{remark}, " +
             "status = #{status}, updated_by = #{updatedBy}, updated_time = #{updatedTime}, version = #{version} " +
             "WHERE id = #{id} AND version = #{oldVersion} AND org_id = #{orgId}")
     boolean update(SubjectType subjectType);
 
     @Select("<script>" +
-            "SELECT * FROM t_subject_type WHERE " +
+            "SELECT * FROM subject_type WHERE " +
             "<if test=\"name!=null and name!=''\">" +
             "name = #{name} AND " +
             "</if>" +

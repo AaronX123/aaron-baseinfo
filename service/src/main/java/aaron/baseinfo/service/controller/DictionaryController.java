@@ -21,6 +21,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -30,6 +31,7 @@ import java.util.Map;
 /**
  * @author xym
  */
+@RequestMapping(ControllerConstant.DICTIONARY)
 @RestController
 public class DictionaryController {
     @Autowired
@@ -38,9 +40,13 @@ public class DictionaryController {
     @Autowired
     CommonState state;
 
+    /**
+     * @param request
+     * @return
+     */
     @MethodEnhancer
     @PostMapping(ControllerConstant.SAVE_DICTIONARY)
-    public CommonResponse<Boolean> save(@RequestBody @Valid CommonRequest<DictionaryVo> request){
+    public CommonResponse<Boolean> save(@RequestBody CommonRequest<DictionaryVo> request){
         DictionaryDto dictionaryDto = CommonUtils.copyProperties(request.getData(),DictionaryDto.class);
         dictionaryService.save(dictionaryDto);
         return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,true);
@@ -48,7 +54,7 @@ public class DictionaryController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.DELETE_DICTIONARY)
-    public CommonResponse<Boolean> delete(@RequestBody @Valid CommonRequest<List<DictionaryVo>> request){
+    public CommonResponse<Boolean> delete(@RequestBody CommonRequest<List<DictionaryVo>> request){
         List<Dictionary> dictionaryList = CommonUtils.convertList(request.getData(),Dictionary.class);
         for (Dictionary dictionary : dictionaryList) {
             dictionary.setOrgId(TokenUtils.getUser().getOrgId());
@@ -61,7 +67,7 @@ public class DictionaryController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.UPDATE_DICTIONARY)
-    public CommonResponse<Boolean> update(@RequestBody @Valid CommonRequest<DictionaryVo> request){
+    public CommonResponse<Boolean> update(@RequestBody CommonRequest<DictionaryVo> request){
         DictionaryDto dictionaryDto = CommonUtils.copyProperties(request.getData(),DictionaryDto.class);
         dictionaryDto.setOldVersion(dictionaryDto.getVersion());
         dictionaryDto.setOrgId(TokenUtils.getUser().getOrgId());

@@ -6,7 +6,7 @@ package aaron.baseinfo.api.constant;
  * @since 2020-03-03
  */
 public class ApiConstant {
-    public static final String SERVICE_NAME = "base-info";
+    public static final String SERVICE_NAME = "baseinfo";
 
     /**
      * 题目部分

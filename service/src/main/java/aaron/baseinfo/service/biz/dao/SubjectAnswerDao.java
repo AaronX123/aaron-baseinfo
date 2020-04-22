@@ -20,7 +20,7 @@ public interface SubjectAnswerDao extends BaseMapper<SubjectAnswer> {
      * @param subjectIdList
      * @return
      */
-    @Select("<script> SELECT id,subject_id,answer,right_answer FROM t_subject_answer WHERE subject_id IN " +
+    @Select("<script> SELECT id,subject_id,answer,right_answer FROM subject_answer WHERE subject_id IN " +
             "<foreach item = 'subjectId' index = 'index' collection = 'subjectIdList' open='(' separator=',' close=')'>"+
             "#{subjectId} </foreach> </script>")
     List<SubjectAnswer> querySubjectAnswerBySubjectId(@Param("subjectIdList")List<Long> subjectIdList);

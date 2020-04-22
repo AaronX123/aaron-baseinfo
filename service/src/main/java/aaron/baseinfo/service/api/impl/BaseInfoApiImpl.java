@@ -15,10 +15,12 @@ import aaron.common.data.common.CommonRequest;
 import aaron.common.data.common.CommonResponse;
 import aaron.common.data.common.CommonState;
 import aaron.common.data.exception.StarterError;
+import aaron.common.logging.annotation.MethodEnhancer;
 import aaron.common.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 2020-03-05
  */
+@RestController
 public class BaseInfoApiImpl implements BaseInfoApi {
     @Autowired
     CategoryService categoryService;
@@ -59,6 +62,7 @@ public class BaseInfoApiImpl implements BaseInfoApi {
      * @param request
      * @return
      */
+    @MethodEnhancer
     @PostMapping(ApiConstant.LIST_CATEGORY)
     @Override
     public CommonResponse<BaseDataDto> listCategory(@RequestBody @Valid CommonRequest<BaseDataDto> request) {
@@ -77,6 +81,7 @@ public class BaseInfoApiImpl implements BaseInfoApi {
      * @param request
      * @return
      */
+    @MethodEnhancer
     @PostMapping(ApiConstant.GET_BASE_DATAS)
     @Override
     public CommonResponse<BaseDataDto> getBaseDataS(@RequestBody @Valid CommonRequest<BaseDataDto> request) {
@@ -89,6 +94,7 @@ public class BaseInfoApiImpl implements BaseInfoApi {
      * @param request
      * @return
      */
+    @MethodEnhancer
     @PostMapping(ApiConstant.GET_BASE_DATA)
     @Override
     public CommonResponse<String> getBaseData(@RequestBody @Valid CommonRequest<Long> request) {
@@ -101,6 +107,7 @@ public class BaseInfoApiImpl implements BaseInfoApi {
      * @param request
      * @return
      */
+    @MethodEnhancer
     @PostMapping(ApiConstant.GET_SUBJECT_AND_ANSWER)
     @Override
     public CommonResponse<SubjectPackage> getSubjectAndAnswer(@RequestBody @Valid CommonRequest<Long> request) {
@@ -118,6 +125,7 @@ public class BaseInfoApiImpl implements BaseInfoApi {
      * @param request
      * @return
      */
+    @MethodEnhancer
     @PostMapping(ApiConstant.GET_SUBJECT_CUSTOMIZED)
     @Override
     public CommonResponse<SubjectPackage> getSubjectAndAnswerCustomized(@RequestBody @Valid CommonRequest<List<CombExamConfigItemDto>> request) {
@@ -132,6 +140,7 @@ public class BaseInfoApiImpl implements BaseInfoApi {
      * @param request
      * @return
      */
+    @MethodEnhancer
     @PostMapping(ApiConstant.GET_SUBJECT_BY_ID)
     @Override
     public CommonResponse<SubjectPackage> getSubjectById(@RequestBody @Valid CommonRequest<List<Long>> request) {
@@ -146,6 +155,7 @@ public class BaseInfoApiImpl implements BaseInfoApi {
      * @param request
      * @return
      */
+    @MethodEnhancer
     @PostMapping(ApiConstant.LIST_SUBJECT_TYPE)
     @Override
     public CommonResponse<BaseDataDto> getSubjectType(@RequestBody @Valid CommonRequest<BaseDataDto> request) {

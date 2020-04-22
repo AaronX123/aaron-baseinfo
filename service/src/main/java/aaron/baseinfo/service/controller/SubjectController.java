@@ -23,6 +23,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -32,6 +33,7 @@ import java.util.Map;
 /**
  * @author xym
  */
+@RequestMapping(ControllerConstant.SUBJECT)
 @RestController
 public class SubjectController {
     @Autowired
@@ -46,7 +48,7 @@ public class SubjectController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.SAVE_SUBJECT)
-    public CommonResponse<Boolean> saveSubject(@RequestBody @Valid CommonRequest<SubjectVo> request){
+    public CommonResponse<Boolean> saveSubject(@RequestBody CommonRequest<SubjectVo> request){
         SubjectDto subjectDto = CommonUtils.copyProperties(request.getData(),SubjectDto.class);
         List<SubjectAnswerDto> answerDtoList = CommonUtils.convertList(request.getData().getSubjectAnswerVOList(),SubjectAnswerDto.class);
         subjectService.saveSubjectAndAnswer(subjectDto,answerDtoList);
@@ -55,7 +57,7 @@ public class SubjectController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.DELETE_SUBJECT_LIST)
-    public CommonResponse<Boolean> deleteSubjectList(@RequestBody @Valid CommonRequest<List<SubjectVo>> request){
+    public CommonResponse<Boolean> deleteSubjectList(@RequestBody CommonRequest<List<SubjectVo>> request){
         List<Subject> subjects = CommonUtils.convertList(request.getData(),Subject.class);
         for (Subject subject : subjects) {
             subject.setJudgeId(CommonUtils.judgeCompanyAndOrg());
@@ -67,7 +69,7 @@ public class SubjectController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.UPDATE_SUBJECT)
-    public CommonResponse<Boolean> updateSubject(@RequestBody @Valid CommonRequest<SubjectVo> request){
+    public CommonResponse<Boolean> updateSubject(@RequestBody CommonRequest<SubjectVo> request){
         SubjectDto subjectDto = CommonUtils.copyProperties(request.getData(),SubjectDto.class);
         List<SubjectAnswerDto> subjectAnswerDtoList = CommonUtils.convertList(request.getData().getSubjectAnswerVOList(),SubjectAnswerDto.class);
         try {
@@ -80,7 +82,7 @@ public class SubjectController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.QUERY_SUBJECT)
-    public CommonResponse<Map> querySubject(@RequestBody @Valid CommonRequest<SubjectQueryVo> request){
+    public CommonResponse<Map> querySubject(@RequestBody CommonRequest<SubjectQueryVo> request){
         Page<SubjectQueryVo> page = PageHelper.startPage(request.getData().getCurrentPage(),request.getData().getPageSize());
         Subject subject = CommonUtils.copyProperties(request.getData(),Subject.class);
         subject.setJudgeId(CommonUtils.judgeCompanyAndOrg());
@@ -92,7 +94,7 @@ public class SubjectController {
 
     @MethodEnhancer
     @PostMapping(ControllerConstant.QUERY_ANSWER)
-    public CommonResponse<List> queryAnswer(@RequestBody @Valid CommonRequest<SubjectAnswerQueryVo> request){
+    public CommonResponse<List> queryAnswer(@RequestBody CommonRequest<SubjectAnswerQueryVo> request){
         long subjectId = request.getData().getSubjectId();
         List<SubjectAnswer> answerList = subjectAnswerService.listAnswerBySubjectId(subjectId);
         List<SubjectAnswerQueryVo> voList = CommonUtils.convertList(answerList,SubjectAnswerQueryVo.class);

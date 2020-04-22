@@ -21,10 +21,7 @@ import aaron.common.utils.TokenUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -37,6 +34,7 @@ import java.util.Map;
  * @version 1.0
  * @since 2020-03-04
  */
+@RequestMapping(ControllerConstant.CATEGORY)
 @RestController
 public class CategoryController {
     @Autowired
@@ -52,7 +50,7 @@ public class CategoryController {
      */
     @MethodEnhancer
     @PostMapping(ControllerConstant.SAVE_CATEGORY)
-    public CommonResponse<Boolean> saveCategory(@RequestBody @Valid CommonRequest<CategoryVo> request){
+    public CommonResponse<Boolean> saveCategory(@RequestBody CommonRequest<CategoryVo> request){
         CategoryDto category = CommonUtils.copyProperties(request.getData(),CategoryDto.class);
         if (categoryService.save(category)){
             return new CommonResponse<>(commonState.getVersion(),commonState.SUCCESS,commonState.SUCCESS_MSG,true);
@@ -66,7 +64,7 @@ public class CategoryController {
      */
     @MethodEnhancer
     @PostMapping(ControllerConstant.DELETE_CATEGORY)
-    public CommonResponse<Boolean> deleteCategory(@RequestBody @Valid CommonRequest<List<CategoryVo>> request){
+    public CommonResponse<Boolean> deleteCategory(@RequestBody CommonRequest<List<CategoryVo>> request){
         List<Category> categoryList = CommonUtils.convertList(request.getData(),Category.class);
         for (Category category : categoryList) {
             category.setOrgId(TokenUtils.getUser().getOrgId());
@@ -86,7 +84,7 @@ public class CategoryController {
      */
     @MethodEnhancer
     @PostMapping(ControllerConstant.UPDATE_CATEGORY)
-    public CommonResponse<Boolean> updateCategory(@RequestBody @Valid CommonRequest<CategoryVo> request){
+    public CommonResponse<Boolean> updateCategory(@RequestBody CommonRequest<CategoryVo> request){
         CategoryDto dto = CommonUtils.copyProperties(request.getData(),CategoryDto.class);
         dto.setOrgId(TokenUtils.getUser().getOrgId());
         dto.setOldVersion(dto.getVersion());
@@ -101,7 +99,7 @@ public class CategoryController {
      */
     @MethodEnhancer
     @PostMapping(ControllerConstant.QUERY_CATEGORY)
-    public CommonResponse<Map> queryCategory(@RequestBody @Valid CommonRequest<CategoryQueryVo> request){
+    public CommonResponse<Map> queryCategory(@RequestBody CommonRequest<CategoryQueryVo> request){
         CategoryQueryVo queryVo = request.getData();
         Page<CategoryQueryVo> page = PageHelper.startPage(queryVo.getCurrentPage(),queryVo.getPageSize());
         Category category = new Category();
@@ -121,7 +119,7 @@ public class CategoryController {
      */
     @MethodEnhancer
     @PostMapping(ControllerConstant.QUERY_CATEGORY_INFO)
-    public CommonResponse<List> queryCategoryInfo(@RequestBody @Valid CommonRequest<CategoryQueryVo> request){
+    public CommonResponse<List> queryCategoryInfo(@RequestBody CommonRequest<CategoryQueryVo> request){
         Category category = CommonUtils.copyProperties(request.getData(),Category.class);
         category.setOrgId(TokenUtils.getUser().getOrgId());
         List<Category> categoryList = categoryService.listByName(category);

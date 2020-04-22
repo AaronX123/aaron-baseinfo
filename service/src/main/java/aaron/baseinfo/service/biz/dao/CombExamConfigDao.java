@@ -15,7 +15,7 @@ public interface CombExamConfigDao extends BaseMapper<CombExamConfig> {
      * @param combExamConfig
      * @return
      */
-    @Delete("DELETE FROM t_comb_exam_config WHERE id = #{id} AND version = #{version} " +
+    @Delete("DELETE FROM comb_exam_config WHERE id = #{id} AND version = #{version} " +
             "AND (company_id = #{judgeId} or org_id = #{judgeId})")
     boolean removeWithOrg(CombExamConfig combExamConfig);
 
@@ -26,7 +26,7 @@ public interface CombExamConfigDao extends BaseMapper<CombExamConfig> {
      * @return
      */
     @Select("<script>" +
-            "SELECT a.*,b.value AS difficultyName FROM t_comb_exam_config a, t_dictionary b WHERE a.difficulty = b.id AND "  +
+            "SELECT a.*,b.value AS difficultyName FROM comb_exam_config a, dictionary b WHERE a.difficulty = b.id AND "  +
             "<if test=\"name!=null and name!=''\">" +
             "a.name LIKE CONCAT('%',#{name},'%') AND " +
             "</if>" +
