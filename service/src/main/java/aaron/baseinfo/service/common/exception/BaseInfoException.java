@@ -19,7 +19,11 @@ public class BaseInfoException extends NestedExamException {
 
     public BaseInfoException(StarterError error) {super(error.getMsg(),error.getCode());}
 
+    public BaseInfoException(StarterError error,Object ... o) {
+        super(String.format(error.getMsg(),o),error.getCode());
+    }
+
     public BaseInfoException(BaseInfoError error, Object ... o){
-        super(String.format(error.msg,o),error.msg);
+        super(String.format(error.msg,o),error.code);
     }
 }

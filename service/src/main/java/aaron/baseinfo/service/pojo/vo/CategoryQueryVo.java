@@ -24,6 +24,7 @@ public class CategoryQueryVo extends BaseQueryVo implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long parentId;
 
+
     public Long getParentId() {
         return parentId;
     }

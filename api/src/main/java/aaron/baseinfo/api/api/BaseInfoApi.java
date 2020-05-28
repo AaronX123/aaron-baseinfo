@@ -68,4 +68,10 @@ public interface BaseInfoApi {
      */
     @PostMapping(ApiConstant.LIST_SUBJECT_TYPE)
     CommonResponse<BaseDataDto> getSubjectType(CommonRequest<BaseDataDto> request);
+
+    @PostMapping(ApiConstant.GET_CATEGORY_VAL)
+    CommonResponse<String> getCategory(Long id);
+
+    @PostMapping(ApiConstant.GET_SUBJECT_TYPE)
+    CommonResponse<String> getSubjectType(Long id);
 }

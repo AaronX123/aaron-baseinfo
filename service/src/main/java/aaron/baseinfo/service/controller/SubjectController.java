@@ -10,6 +10,7 @@ import aaron.baseinfo.service.common.exception.BaseInfoException;
 import aaron.baseinfo.service.common.utils.PageMapUtil;
 import aaron.baseinfo.service.pojo.model.Subject;
 import aaron.baseinfo.service.pojo.model.SubjectAnswer;
+import aaron.baseinfo.service.pojo.model.SubjectInfo;
 import aaron.baseinfo.service.pojo.vo.SubjectAnswerQueryVo;
 import aaron.baseinfo.service.pojo.vo.SubjectQueryVo;
 import aaron.baseinfo.service.pojo.vo.SubjectVo;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -86,8 +88,14 @@ public class SubjectController {
         Page<SubjectQueryVo> page = PageHelper.startPage(request.getData().getCurrentPage(),request.getData().getPageSize());
         Subject subject = CommonUtils.copyProperties(request.getData(),Subject.class);
         subject.setJudgeId(CommonUtils.judgeCompanyAndOrg());
-        List<Subject> subjectList = subjectService.listSubject(subject);
-        List<SubjectQueryVo> voList = CommonUtils.convertList(subjectList,SubjectQueryVo.class);
+        List<SubjectInfo> subjectList = subjectService.listSubject(subject);
+        List<SubjectQueryVo> voList = new ArrayList<>();
+        for (SubjectInfo subjectInfo : subjectList) {
+            voList.add(SubjectQueryVo.builder().id(subjectInfo.getId()).name(subjectInfo.getName()).difficulty(subjectInfo.getDifficulty())
+                    .subjectTypeId(subjectInfo.getSubjectTypeId()).categoryId(subjectInfo.getCategoryId()).categoryName(subjectInfo.getCategoryName())
+                    .subjectTypeName(subjectInfo.getSubjectTypeName()).difficultyName(subjectInfo.getDifficultyName()).updatedTime(subjectInfo.getUpdatedTime()).build()
+            );
+        }
         Map<String,Object> map = PageMapUtil.getPageMap(voList,page);
         return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,map);
     }

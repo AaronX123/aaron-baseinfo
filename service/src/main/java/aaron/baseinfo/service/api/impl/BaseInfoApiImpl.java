@@ -18,6 +18,8 @@ import aaron.common.data.exception.StarterError;
 import aaron.common.logging.annotation.MethodEnhancer;
 import aaron.common.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -181,5 +183,17 @@ public class BaseInfoApiImpl implements BaseInfoApi {
         Map<Long,String> map = resolve(idList,values,baseDataDto.getBaseInfoMap());
         baseDataDto.setBaseInfoMap(map);
         return baseDataDto;
+    }
+
+    @PostMapping(ApiConstant.GET_CATEGORY_VAL)
+    @Override
+    public CommonResponse<String> getCategory(@RequestBody Long id) {
+        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,categoryService.getCategoryNameById(id));
+    }
+
+    @PostMapping(ApiConstant.GET_SUBJECT_TYPE)
+    @Override
+    public CommonResponse<String> getSubjectType(@RequestBody Long id) {
+        return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,subjectTypeService.getTypeName(id));
     }
 }

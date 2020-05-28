@@ -14,6 +14,7 @@ import aaron.common.utils.CommonUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -71,9 +72,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
     @Override
     public List<Category> listByName(Category category) {
         QueryWrapper<Category> wrapper = new QueryWrapper<>();
-        wrapper.likeRight(Category.NAME,category.getName());
+        if (StringUtils.isNotBlank(category.getName())){
+            wrapper.likeRight(Category.NAME,category.getName());
+        }
+        if (category.getParentId() != null){
+            wrapper.eq(Category.PARENT_ID,category.getParentId());
+        }
         wrapper.eq(Category.ORG_ID,category.getOrgId());
-        wrapper.eq(Category.PARENT_ID,category.getParentId());
         wrapper.orderByDesc(Category.UPDATE_TIME);
         return list(wrapper);
     }
@@ -118,5 +123,37 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
             res.add(category.getName());
         }
         return res;
+    }
+
+    /**
+     * 根据节点id查询子节点比如c++ -> c++基础 + c++进阶
+     *
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Category> queryChildNode(Long parentId) {
+        QueryWrapper<Category> wrapper = new QueryWrapper<>();
+        wrapper.eq("parent_id",parentId);
+        return list(wrapper);
+    }
+
+    @Override
+    public String getCategoryNameById(Long id) {
+        Cache cache = cacheManager.getCache(CacheConstants.CATEGORY_VAL);
+        Cache.ValueWrapper wrapper = cache.get(id);
+        if (wrapper == null){
+            QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
+            queryWrapper.select("name");
+            queryWrapper.eq("id",id);
+            Category category = getOne(queryWrapper);
+            if (category == null){
+                throw new BaseInfoException(BaseInfoError.CATEGORY_NOT_EXIST);
+            }
+            cache.put(id,category.getName());
+            return category.getName();
+        }else {
+            return (String) wrapper.get();
+        }
     }
 }

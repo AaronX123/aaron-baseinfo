@@ -5,6 +5,7 @@ import aaron.baseinfo.api.dto.CombExamConfigItemDto;
 import aaron.baseinfo.service.biz.dao.CombExamConfigDao;
 import aaron.baseinfo.service.biz.service.CombExamConfigItemService;
 import aaron.baseinfo.service.biz.service.CombExamConfigService;
+import aaron.baseinfo.service.biz.service.SubjectService;
 import aaron.baseinfo.service.common.exception.BaseInfoError;
 import aaron.baseinfo.service.common.exception.BaseInfoException;
 import aaron.baseinfo.service.pojo.model.CombExamConfig;
@@ -32,6 +33,9 @@ public class CombExamConfigServiceImpl extends ServiceImpl<CombExamConfigDao, Co
     @Autowired
     CombExamConfigItemService itemService;
 
+    @Autowired
+    SubjectService subjectService;
+
     /**
      * 保存组卷配置
      *
@@ -44,6 +48,8 @@ public class CombExamConfigServiceImpl extends ServiceImpl<CombExamConfigDao, Co
     public boolean saveCombExamConfigItem(CombExamConfigDto combExamConfigDto) {
         List<CombExamConfigItem> itemList = CommonUtils.convertList(combExamConfigDto.getCombExamConfigItemDtoList(),CombExamConfigItem.class);
         for (CombExamConfigItem item : itemList) {
+            // 需要判断该题数目是否满足
+            subjectService.isEnough(item.getCategoryId(),item.getSubjectTypeId(),item.getNum());
             item.setId(snowFlake.nextId());
             item.setCombExamId(combExamConfigDto.getId());
         }
@@ -90,6 +96,7 @@ public class CombExamConfigServiceImpl extends ServiceImpl<CombExamConfigDao, Co
         List<CombExamConfigItem> saveCombExamConfigItemList = new ArrayList<>();
         List<CombExamConfigItem> updateCombExamConfigItemList = new ArrayList<>();
         for (CombExamConfigItemDto itemDto : dto.getCombExamConfigItemDtoList()) {
+            subjectService.isEnough(itemDto.getCategoryId(),itemDto.getSubjectTypeId(),itemDto.getNum());
             CombExamConfigItem item = CommonUtils.copyProperties(itemDto,CombExamConfigItem.class);
             if (itemDto.getSave()){
                 item.setId(snowFlake.nextId());
@@ -127,6 +134,7 @@ public class CombExamConfigServiceImpl extends ServiceImpl<CombExamConfigDao, Co
      */
     @Override
     public List<CombExamConfig> listById(CombExamConfig combExamConfig) {
+        combExamConfig.setJudgeId(CommonUtils.judgeCompanyAndOrg());
         return baseMapper.queryCombExamConfig(combExamConfig);
     }
 }

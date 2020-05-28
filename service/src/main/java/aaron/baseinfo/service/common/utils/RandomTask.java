@@ -3,6 +3,7 @@ package aaron.baseinfo.service.common.utils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author xiaoyouming
@@ -13,7 +14,7 @@ public class RandomTask {
     private int sum;
     private int[] book;
     private List<Long> result;
-    private Random random = new Random();
+    private ThreadLocalRandom random = ThreadLocalRandom.current();
 
     public RandomTask(int n, List<Long> idList){
         this.n = n;

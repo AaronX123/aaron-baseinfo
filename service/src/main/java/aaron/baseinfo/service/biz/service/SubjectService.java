@@ -5,6 +5,7 @@ import aaron.baseinfo.api.dto.SubjectDto;
 import aaron.baseinfo.api.dto.SubjectPackage;
 import aaron.baseinfo.service.pojo.model.CombExamConfigItem;
 import aaron.baseinfo.service.pojo.model.Subject;
+import aaron.baseinfo.service.pojo.model.SubjectInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -41,9 +42,18 @@ public interface SubjectService extends IService<Subject> {
      * @param subject
      * @return
      */
-    List<Subject> listSubject(Subject subject);
+    List<SubjectInfo> listSubject(Subject subject);
 
     SubjectPackage getSubject(List<CombExamConfigItem> itemList);
 
     SubjectPackage getSubjectById(List<Long> idList);
+
+    /**
+     * 判断当前配置是否满足题目数目
+     * @param category
+     * @param subjectType
+     * @param count
+     * @return
+     */
+    void isEnough(Long category, Long subjectType, int count);
 }

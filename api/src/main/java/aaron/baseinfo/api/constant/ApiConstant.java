@@ -30,4 +30,10 @@ public class ApiConstant {
      * 题目类型 选择/填空
      */
     public static final String LIST_SUBJECT_TYPE = "/list/subject/type";
+
+    public static final String GET_DIC_VAL = "/get/dictionary/val";
+
+    public static final String GET_CATEGORY_VAL = "/get/category/val";
+
+    public static final String GET_SUBJECT_TYPE = "/get/subject/type";
 }

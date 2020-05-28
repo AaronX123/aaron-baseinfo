@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author xym
@@ -59,7 +60,7 @@ public class DictionaryController {
         for (Dictionary dictionary : dictionaryList) {
             dictionary.setOrgId(TokenUtils.getUser().getOrgId());
         }
-        if (dictionaryService.removeByIds(dictionaryList)){
+        if (dictionaryService.removeByIds(dictionaryList.stream().map(Dictionary::getId).collect(Collectors.toList()))){
             return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,true);
         }
         throw new BaseInfoException(BaseInfoError.DICTIONARY_DEL_FAIL);
@@ -87,7 +88,8 @@ public class DictionaryController {
         dictionary.setCategory(vo.getCategory());
         dictionary.setName(vo.getName());
         List<Dictionary> dictionaryList = dictionaryService.queryDictionary(dictionary);
-        Map<String,Object> pageMap = PageMapUtil.getPageMap(dictionaryList,page);
+        List<DictionaryListVo> dictionaryVoList = CommonUtils.convertList(dictionaryList,DictionaryListVo.class);
+        Map<String,Object> pageMap = PageMapUtil.getPageMap(dictionaryVoList,page);
         return new CommonResponse<>(state.SUCCESS,state.SUCCESS_MSG,pageMap);
     }
 

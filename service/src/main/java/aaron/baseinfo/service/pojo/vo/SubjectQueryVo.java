@@ -2,13 +2,21 @@ package aaron.baseinfo.service.pojo.vo;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 题目查询VO
  * @author pan
  */
+@Builder
+@AllArgsConstructor
+@Data
 public class SubjectQueryVo extends BaseQueryVo implements Serializable {
 
     private static final long serialVersionUID = 1902508370783136321L;
@@ -40,6 +48,42 @@ public class SubjectQueryVo extends BaseQueryVo implements Serializable {
      */
     @JsonSerialize(using = ToStringSerializer.class)
     private Long categoryId;
+
+
+    /**
+     * 非表对应字段
+     * 题目类型名字
+     */
+    private String subjectTypeName;
+
+    /**
+     * 非表对应字段
+     * 题目类别名字
+     */
+    private String categoryName;
+
+    /**
+     * 非表对应字段
+     * 题目难度名字
+     */
+    private String difficultyName;
+
+    /**
+     * 修改日期
+     */
+    public Date updatedTime;
+
+    /**
+     * 题目类型属性列
+     */
+    private String attribute;
+
+    /**
+     * 状态位
+     */
+    private Byte status;
+
+    private String remark;
 
     public SubjectQueryVo() {
     }
@@ -84,16 +128,32 @@ public class SubjectQueryVo extends BaseQueryVo implements Serializable {
         this.categoryId = categoryId;
     }
 
-    @Override
-    public String toString() {
-        return "SubjectQueryVo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", difficulty=" + difficulty +
-                ", subjectTypeId=" + subjectTypeId +
-                ", categoryId=" + categoryId +
-                ", currentPage=" + currentPage +
-                ", pageSize=" + pageSize +
-                '}';
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
+
+    public String getSubjectTypeName() {
+        return subjectTypeName;
+    }
+
+    public void setSubjectTypeName(String subjectTypeName) {
+        this.subjectTypeName = subjectTypeName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getDifficultyName() {
+        return difficultyName;
+    }
+
+    public void setDifficultyName(String difficultyName) {
+        this.difficultyName = difficultyName;
+    }
+
 }

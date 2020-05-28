@@ -1,6 +1,7 @@
 package aaron.baseinfo.service.biz.dao;
 
 import aaron.baseinfo.service.pojo.model.Subject;
+import aaron.baseinfo.service.pojo.model.SubjectInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,7 +28,16 @@ public interface SubjectDao extends BaseMapper<Subject> {
             "</if>" +
             "AND (a.company_id = #{judgeId} or a.org_id = #{judgeId}) order by updated_time DESC" +
             "</script>")
-    List<Subject> querySubject(Subject subject);
+    List<SubjectInfo> querySubject(Subject subject);
+
+
+    @Select("<script>" +
+            "SELECT a.*,t.name AS subjectTypeName,c.name AS categoryName,d.value AS difficultyName FROM subject a,subject_type t,category c,dictionary d WHERE "  +
+            "a.subject_type_id = t.id AND a.category_id = c.id AND a.difficulty = d.id " +
+            "AND a.category_id = #{id} " +
+            " order by updated_time DESC" +
+            "</script>")
+    List<SubjectInfo> queryByCategory(@Param("id") long id);
 
     @Select("SELECT a.id FROM subject a " +
             "Left JOIN subject_type t ON a.subject_type_id = t.id " +

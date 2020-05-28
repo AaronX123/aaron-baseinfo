@@ -6,8 +6,10 @@ import aaron.baseinfo.service.common.exception.BaseInfoException;
 import aaron.baseinfo.service.manage.UserApi;
 import aaron.common.data.common.CacheConstants;
 import aaron.common.data.common.CommonRequest;
+import aaron.common.data.common.CommonResponse;
 import aaron.common.data.common.CommonState;
 import aaron.common.data.exception.StarterError;
+import aaron.common.utils.CommonUtils;
 import aaron.common.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -54,6 +56,9 @@ public class BaseService {
         Cache.ValueWrapper wrapper = cache.get(id);
         if (wrapper == null){
             String value = queryFromApi(id, type);
+            if (value == null){
+                throw new BaseInfoException(StarterError.SYSTEM_RPC_ERROR);
+            }
             cache.put(id,value);
             return value;
         }
@@ -61,11 +66,22 @@ public class BaseService {
     }
 
     public String queryFromApi(long id, EnumUserInfoType type){
+        CommonResponse<String> response;
         switch (type){
             case COMPANY:
-                return userApi.getCompanyById(new CommonRequest<>(state.getVersion(), TokenUtils.getToken(),id)).getData();
+                response = userApi.getCompanyById(new CommonRequest<>(state.getVersion(), TokenUtils.getToken(),id));
+                if (CommonUtils.isSuccess(response)){
+                    return response.getData();
+                }else {
+                    throw new BaseInfoException(StarterError.SYSTEM_API_ERROR,response.getMsg());
+                }
             case USER:
-                return userApi.getUserNameById(new CommonRequest<>(state.getVersion(), TokenUtils.getToken(),id)).getData();
+                response = userApi.getUserNameById(new CommonRequest<>(state.getVersion(), TokenUtils.getToken(),id));
+                if (CommonUtils.isSuccess(response)){
+                    return response.getData();
+                }else {
+                    throw new BaseInfoException(StarterError.SYSTEM_API_ERROR,response.getMsg());
+                }
             case ORG:
                 return null;
             default:

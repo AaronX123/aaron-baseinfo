@@ -115,11 +115,6 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryDao, Dictionary
      */
     @Override
     public List<Dictionary> queryDictionary(Dictionary dictionary) {
-        QueryWrapper<Dictionary> wrapper = new QueryWrapper<>();
-        wrapper.likeRight(Dictionary.NAME,dictionary.getName());
-        wrapper.likeRight(Dictionary.CATEGORY,dictionary.getCategory());
-        wrapper.eq(Dictionary.ORG_ID,dictionary.getOrgId());
-        wrapper.orderByDesc(Dictionary.UPDATE_TIME);
-        return list(wrapper);
+        return baseMapper.queryDictionaryValue(dictionary);
     }
 }

@@ -107,6 +107,7 @@ public class CombExamConfigController {
     public CommonResponse queryCombExamConfigItem(@RequestBody CommonRequest<CombExamConfigQueryVo> request){
         Page<CombExamConfigQueryVo> page = PageHelper.startPage(request.getData().getCurrentPage(),request.getData().getPageSize());
         CombExamConfigItem item = CommonUtils.copyProperties(request.getData(),CombExamConfigItem.class);
+        item.setCombExamId(request.getData().getId());
         List<CombExamConfigItem> combExamConfigItemList = combExamConfigItemService.listByCombExamId(item);
         List<CombExamConfigItemListVo> voList = CommonUtils.convertList(combExamConfigItemList,CombExamConfigItemListVo.class);
         Map<String,Object> pageMap = PageMapUtil.getPageMap(voList,page);

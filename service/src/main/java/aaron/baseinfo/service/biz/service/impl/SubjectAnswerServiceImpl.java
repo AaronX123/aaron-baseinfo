@@ -4,11 +4,14 @@ import aaron.baseinfo.service.biz.dao.SubjectAnswerDao;
 import aaron.baseinfo.service.biz.service.SubjectAnswerService;
 import aaron.baseinfo.service.pojo.model.Subject;
 import aaron.baseinfo.service.pojo.model.SubjectAnswer;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xym
@@ -20,8 +23,13 @@ public class SubjectAnswerServiceImpl extends ServiceImpl<SubjectAnswerDao, Subj
      * @return
      */
     @Override
-    public boolean removeBatchBySubjectId(List<Long> subjectIdList) {
-        return baseMapper.removeBatchBySubjectId(subjectIdList);
+    public void removeBatchBySubjectId(List<Long> subjectIdList) {
+//        Map<String,Object> map = new HashMap<>();
+//        for (Long id : subjectIdList) {
+//            map.put("subject_id",id);
+//        }
+//        removeByMap(map);
+        baseMapper.removeBatchBySubjectId(subjectIdList);
     }
 
     @Override

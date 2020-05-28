@@ -15,7 +15,7 @@ public interface SubjectAnswerService extends IService<SubjectAnswer> {
      * @param subjectIdList
      * @return
      */
-    boolean removeBatchBySubjectId(@Param(value = "idList") List<Long> subjectIdList);
+    void removeBatchBySubjectId(List<Long> subjectIdList);
 
 
     boolean removeBySubjectId(long id);

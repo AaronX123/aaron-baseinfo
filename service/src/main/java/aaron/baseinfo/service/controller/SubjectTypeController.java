@@ -74,6 +74,7 @@ public class SubjectTypeController {
     public CommonResponse<Map> querySubjectType(@RequestBody CommonRequest<SubjectTypeQueryVo> request){
         Page<SubjectTypeQueryVo> page = PageHelper.startPage(request.getData().getCurrentPage(),request.getData().getPageSize());
         SubjectType subjectType = CommonUtils.copyProperties(request.getData(),SubjectType.class);
+        subjectType.setOrgId(TokenUtils.getUser().getOrgId());
         List<SubjectType> subjectTypeList = subjectTypeService.list(subjectType);
         List<SubjectQueryVo> subjectQueryVoList = CommonUtils.convertList(subjectTypeList,SubjectQueryVo.class);
         Map<String,Object> map = PageMapUtil.getPageMap(subjectQueryVoList,page);

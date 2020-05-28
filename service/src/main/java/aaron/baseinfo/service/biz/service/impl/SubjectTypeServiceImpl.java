@@ -12,6 +12,7 @@ import aaron.common.data.common.CacheConstants;
 import aaron.common.utils.CommonUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -53,7 +54,9 @@ public class SubjectTypeServiceImpl extends ServiceImpl<SubjectTypeDao, SubjectT
     public List<SubjectType> list(SubjectType subjectType) {
         QueryWrapper<SubjectType> wrapper = new QueryWrapper<>();
         wrapper.eq(SubjectType.ORG_ID,subjectType.getOrgId());
-        wrapper.likeRight(SubjectType.NAME,subjectType.getName());
+        if (StringUtils.isNotBlank(subjectType.getName())){
+            wrapper.likeRight(SubjectType.NAME,subjectType.getName());
+        }
         wrapper.orderByDesc(SubjectType.UPDATE_TIME);
         return list(wrapper);
     }
@@ -81,5 +84,24 @@ public class SubjectTypeServiceImpl extends ServiceImpl<SubjectTypeDao, SubjectT
             }
         }
         return res;
+    }
+
+    @Override
+    public String getTypeName(Long id) {
+        Cache cache = cacheManager.getCache(CacheConstants.SUBJECT_TYPE_VAL);
+        Cache.ValueWrapper wrapper = cache.get(id);
+        if (wrapper != null){
+            return (String) wrapper.get();
+        }else {
+            QueryWrapper<SubjectType> subjectTypeQueryWrapper = new QueryWrapper<>();
+            subjectTypeQueryWrapper.select(SubjectType.ATTRIBUTE);
+            subjectTypeQueryWrapper.eq("id",id);
+            SubjectType type = getOne(subjectTypeQueryWrapper);
+            if (type == null){
+                throw new BaseInfoException(BaseInfoError.SUBJECT_TYPE_NOT_EXIST);
+            }
+            cache.put(id,type.getAttribute());
+            return type.getAttribute();
+        }
     }
 }
